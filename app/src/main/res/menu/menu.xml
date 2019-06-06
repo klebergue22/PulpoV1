@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.journaldev.tablayoutviewpager.com.cmc.pulpov1.activities.TabsActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Acciones"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:orderInCategory="100"
+        android:title="Acciones"
+        android:icon="@drawable/common_google_signin_btn_text_dark"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="Acciones"
+        android:icon="@drawable/common_google_signin_btn_icon_light_focused"
+        app:showAsAction="ifRoom" />
+</menu>

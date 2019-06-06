@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cmc.pulpov1">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/pulpo"
+        android:label="Pulpo"
+        android:roundIcon="@mipmap/pulpo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activities.PertenecerEquipoActivity"></activity>
+        <activity android:name=".activities.CategoriaActivity" />
+        <activity android:name=".activities.ListaJugadoresActivity" />
+
+
+        <activity android:name=".activities.CalendarioActivity" />
+        <activity
+            android:name=".activities.TabsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.ListaDeTorneosActivity"
+            android:label="@string/app_torneo_title" />
+        <activity android:name=".activities.RegistroFechasActivity" />
+        <activity
+            android:name=".activities.RegistroJugadorActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.CrearEquipoActivity"
+            android:label="@string/app_btnCrearE"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.UsuarioLogueadoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.GestionTorneoActivity"
+            android:label="@string/app_btnCrear"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.RecuperarClaveActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.CrearCuentaActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ListaJugadoresActivity"
+    android:id="@+id/rootview">
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="287dp"
+        android:layout_height="239dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+
+            <ListView
+                android:id="@+id/lvJugador"
+                android:layout_width="282dp"
+                android:layout_height="233dp"
+                >
+
+            </ListView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCrearJugador"
+        android:layout_width="177dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="216dp"
+        android:layout_marginBottom="28dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/app_btnCrearJ"
+        android:textAllCaps="false"
+        android:textColor="@color/letrasBoton"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnSerParteEquipo"
+        android:layout_width="177dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="29dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/app_btnserParteE"
+        android:textAllCaps="false"
+        android:textColor="@color/letrasBoton"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

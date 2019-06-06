@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">pulpoLogin</string>
+    <string name="app_contra">Contraseña</string>
+    <string name="app_correo">Correo</string>
+    <string name="app_rec_clave">¿Olvidaste tu contraseña?</string>
+    <string name="app_crear_cuenta">Regístrate</string>
+    <string name="app_consulta">¿Aún no tienes una cuenta?</string>
+    <string name="app_ingresar">Ingresar</string>
+    <string name="app_nombre">Nombres</string>
+    <string name="app_apellidos">Apellidos</string>
+    <string name="app_cambiar_contra">Recuperar contraseña</string>
+
+    <string name="app_names">torneosPrueba</string>
+    <string name="app_btnIngresarT">Ingresar Torneos</string>
+    <string name="app_btnCrear">Crear Torneo</string>
+    <string name="app_btnCrearE">Crear Equipo</string>
+    <string name="app_btnCrearJ">Crear Jugador</string>
+    <string name="app_btnCrearP">Crear Partido</string>
+    <string name="app_btnserParteE">Ser Parte del Equipo</string>
+    <string name="app_btnVerListaT">Ver Lista de Torneos</string>
+    <string name="app_btnGuardar">Guardar</string>
+    <string name="app_btnAprobar">Aprobar</string>
+
+
+    <string name="app_id">Id</string>
+    <string name="app_nombre_T">Nombre</string>
+    <string name="app_anio">Año</string>
+    <string name="app_fecha_ini">Fecha de Inicio</string>
+    <string name="title_activity_usuario_logueado">UsuarioLogueado</string>
+    <string name="app_torneo_nombreOrga">Nombre Organizador</string>
+    <string name="app_torneo_apellidoOrga">Apellido Organizador</string>
+    <string name="app_torneo_correoOrga">Mail Organizador</string>
+    <string name="app_torneo_telefOrga">Teléfono Organizador</string>
+    <string name="app_torneo_title">Torneos</string>
+    <string name="app_torneo_name">Nombre Torneo</string>
+    <string name="app_torneo_img">Cargar Imagen</string>
+    <string name="app_mail">Mail</string>
+
+
+    <string name="app_eq_titleEquipo">Equipos</string>
+    <string name="app_eq_categoryEquipo">Categorìa</string>
+    <string name="app_eq_names">Nombre Equipo</string>
+    <string name="app_eq_representante">Nombre Representante</string>
+    <string name="app_eq_representanteA">Apellido Representante</string>
+    <string name="app_eq_mail">Mail Representante</string>
+    <string name="app_eq_telefono">Teléfono</string>
+    <string name="app_eq_nro_camiseta">Número de Camiseta</string>
+
+    <string name="app_ju_cedula">* Cédula</string>
+    <string name="app_ju_pNombre">* Primer nombre</string>
+    <string name="app_ju_pApellido">* Primer apellido</string>
+    <string name="app_ju_nombreJu">Nombre Jugador</string>
+    <string name="app_ju_apellidoJu">Apellido Jugador</string>
+    <string name="app_ju_estado">Estado</string>
+
+    <string name="app_ju_sNombre">Segundo nombre</string>
+    <string name="app_ju_sApellido">Segundo apellido</string>
+    <string name="app_ju_fechaNacimiento">* Fecha de nacimiento</string>
+    <string name="app_ju_perfilJugador">Perfil Jugador</string>
+
+    <string name="app_par_eqUno">* Equipo Uno</string>
+    <string name="app_par_eqDos">* Equipo Dos</string>
+    <string name="app_par_fecha">* Fecha de partidio</string>
+    <string name="app_par_registro">Agregar Fecha</string>
+    <string name="app_par_agregar">Agregar Programación</string>
+    <string name="app_par_vs">Vs</string>
+    <string name="app_par_dosPuntos">:</string>
+
+    <string name="app_fech_equipo1">Equipo 1</string>
+    <string name="app_fech_equipo2">Equipo 2</string>
+    <string name="app_fech_hora">Hora</string>
+    <string name="app_fecha">Fecha</string>
+
+
+    <string name="tab_text_1">Equipos</string>
+    <string name="tab_text_2">Calendario</string>
+    <string name="tab_text_3">Resultados</string>
+    <string name="tab_text_4">Posiciones</string>
+
+    <string name="app_ser_par_equipo">NRegistrar Fecha</string>
+
+
+</resources>

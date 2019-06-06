@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "537235941639",
+    "firebase_url": "https://pulpo-a796e.firebaseio.com",
+    "project_id": "pulpo-a796e",
+    "storage_bucket": "pulpo-a796e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537235941639:android:05c9896ca22fdbfe",
+        "android_client_info": {
+          "package_name": "com.cmc.pulpov1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537235941639-6vd5odparmmscplg4app1h7ht59ap787.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cmc.pulpov1",
+            "certificate_hash": "7fad4545ee106d46b616f59decaf46770db6797a"
+          }
+        },
+        {
+          "client_id": "537235941639-17rf7ge648gug46o9c7pagi0tha5v3eg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpQLhh459brmGsUYxYrq9oC4IoqiLj8hU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537235941639-17rf7ge648gug46o9c7pagi0tha5v3eg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
