@@ -14,6 +14,7 @@ import java.util.List;
 
 public class PartidoRecyclerViewAdapter extends RecyclerView.Adapter<PartidoHolder> {
     private List<Partido> partidos;
+
     public PartidoRecyclerViewAdapter(List<Partido> partidos) {
         this.partidos = partidos;
     }
@@ -27,10 +28,9 @@ public class PartidoRecyclerViewAdapter extends RecyclerView.Adapter<PartidoHold
     @Override
     public void onBindViewHolder(PartidoHolder partidoHolderHolder, int position) {
         partidoHolderHolder.bind(partidos.get(position));
-
-        Log.d("PULPOLOG","onBindViewHolder "+partidos.size());
-
+        Log.d("PULPOLOG", "onBindViewHolder " + partidos.size());
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -40,7 +40,6 @@ public class PartidoRecyclerViewAdapter extends RecyclerView.Adapter<PartidoHold
     public int getItemCount() {
         return partidos.size();
     }
-
 
 
 }

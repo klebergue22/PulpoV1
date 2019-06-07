@@ -53,11 +53,11 @@ public class PartidoAdapter extends ArrayAdapter<Partido> {
         Partido partidoActual = partidos.get(position);
         tvEquipo1 = viewItem.findViewById(R.id.txEquipo1);
         tvEquipo1.setText(partidoActual.getEquipoUno());
-        tvEquipo2 = viewItem.findViewById(R.id.tilteE02);
+        tvEquipo2 = viewItem.findViewById(R.id.txEquipo2);
         tvEquipo2.setText(partidoActual.getEquipoDos());
         tvHora=viewItem.findViewById(R.id.tvValorHora);
         tvHora.setText(partidoActual.getHora());
-        tvMinuto=viewItem.findViewById(R.id.tvE1);
+        tvMinuto=viewItem.findViewById(R.id.tvValorMinuto);
         tvMinuto.setText(partidoActual.getMinuto());
         return viewItem;
     }

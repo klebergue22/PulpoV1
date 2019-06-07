@@ -22,9 +22,9 @@ public class PartidoHolder extends RecyclerView.ViewHolder implements View.OnCli
     public PartidoHolder(View itemView) {
         super(itemView);
         tvHora = itemView.findViewById(R.id.tvValorHora);
-        tvMinuto = itemView.findViewById(R.id.tvE1);
+        tvMinuto = itemView.findViewById(R.id.tvValorMinuto);
         tvEquipo1 = itemView.findViewById(R.id.txEquipo1);
-        tvEquipo2 = itemView.findViewById(R.id.tilteE02);
+        tvEquipo2 = itemView.findViewById(R.id.txEquipo2);
         itemView.setOnClickListener(this);
     }
 

@@ -194,7 +194,7 @@ public class PulpoSingleton {
                     Log.d("PULPOLOG", "SMO llama al boton!!");
                     //1. Con la posicion recuperar el partido de la lista de partidos
                     partido = partidos.get(position);
-                    Log.d(Rutas.TAG,"El partido recuperado es "+partido.toString());
+                    Log.d(Rutas.TAG, "El partido recuperado es " + partido.toString());
                     //2. ACTUALIZAR (NO INSERTAR!!!! ACTUALIZAR) los puntos del equipo1 y del equipo2 del equipo seleccionado
                     // --- Armar la ruta hasta llegar al valor que se quiere modificar osea hasta el atributo que guarda los puntos de cada equipo
                     resultadosDBReference = database.
@@ -207,17 +207,16 @@ public class PulpoSingleton {
                             child(partido.getId().toString());
 
 
-                    Log.d(Rutas.TAG,"El valor de la ruta es "+resultadosDBReference.toString());
-
+                    Log.d(Rutas.TAG, "El valor de la ruta es " + resultadosDBReference.toString());
 
 
                     // -- Para armar la ruta, se tiene todo lo necesario en el objeto partido de la lista, como se tiene la posición elegida, se puede recuperar el partido
                     // -- Con los datos del partido se ARMA correctamente la ruta y luego se MODIFICA solo los dos atributos que cambian usando los valores que llegan en el método
 
-                    partido.setPuntosEquipoUno  (Integer.toString(puntosEquipo1));
+                    partido.setPuntosEquipoUno(Integer.toString(puntosEquipo1));
                     partido.setPuntosEquiDos(Integer.toString(intPuntosEquipo2));
 
-                    Log.d(Rutas.TAG,"El partido seteado nuevo es ****"+partido.toString());
+                    Log.d(Rutas.TAG, "El partido seteado nuevo es ****" + partido.toString());
                     resultadosDBReference.setValue(partido);
 
 
@@ -329,8 +328,6 @@ public class PulpoSingleton {
         };
         //Se descomenta el reotno del paso 3.- del listener
         equiposDBReference.addChildEventListener(childEventListener);
-
-
     }
 
 
@@ -397,69 +394,6 @@ public class PulpoSingleton {
         partidosDBReference.addChildEventListener(childEventListener);
 
     }
-
-  /* public void setResultadosFirabaseListener() {
-        //1.-Referencia al arbol
-        partidosDBReference = database.
-                getReference(Rutas.CALENDARIO).
-                child(Rutas.ROOT_TORNEOS).
-                child(codigoTorneo).
-                child(Rutas.CATEGORIAS).
-                child(codigoCategoria).
-                child(Rutas.FECHA) ;
-
-        Log.d("PULPOLOG", "PATH en Resultados>>" + partidosDBReference.getPath());
-        //2.-Crear el listener
-        ChildEventListener childEventListener = new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "onChildAdded de partido");
-                Partido partido = dataSnapshot.getValue(Partido.class);
-                partidos.add(partido);
-                resultadoAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "onChildAdded de partido");
-                Partido partido = dataSnapshot.getValue(Partido.class);
-
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("PULPOLOG", "Se borra equipo " + dataSnapshot.getKey());
-                int posicionRepetido = -1;
-                for (int i = 0; i < partidos.size(); i++) {
-                    //se compara contra el id
-                    if (partidos.get(i).getId().equals(dataSnapshot.getKey())) {
-                        posicionRepetido = i;
-                    }
-                }
-                if (posicionRepetido != -1) {
-                    partidos.remove(posicionRepetido);
-                    partidoAdapter.notifyDataSetChanged();
-                }
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        //Se descomenta el reotno del paso 3.- del listener
-        resultadosDBReference.addChildEventListener(childEventListener);
-
-    }*/
 
 
 }
