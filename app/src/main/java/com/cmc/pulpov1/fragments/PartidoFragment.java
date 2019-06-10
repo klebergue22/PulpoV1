@@ -39,7 +39,7 @@ public class PartidoFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Date fecha=new Date();
-        p1=(new Partido("E1","E2","0","0","14","05","eq1_eq2"));
+       // p1=(new Partido("E1","E2","0","0","14","05","eq1_eq2"));
       //  partidos=new ArrayList<Partido>();
      //   partidos.add(p1);
       // PartidoRecyclerViewAdapter adapter =new PartidoRecyclerViewAdapter(PulpoSingleton.getInstance().getPartidos());

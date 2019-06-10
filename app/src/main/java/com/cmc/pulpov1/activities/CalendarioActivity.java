@@ -45,13 +45,21 @@ public class CalendarioActivity extends AppCompatActivity {
     private EditText etFechaPartido;
     private TextView tvEquipo1;
     private TextView tvEquipo2;
+    private TextView tvNumeroFecha;
     private Button btnRegistrar;
     private Spinner spHora;
     private Spinner spMiunuto;
     private TextView tvFecha;
     private Date fechaProgramacion;
+    //EEEE/MMMM/yyyy
+    //dd MMM yyyy
+    //dow mon dd hh:mm:ss zzz yyyy
+    //dow, MMM dd yyyy
+    //"EEEE, MMMM d 'at' hh:mm a 'in the y"
+    //EEE, MMM d, ''yy
+
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-    private SimpleDateFormat sdfCompleto = new SimpleDateFormat("dd MMM yyyy");
+    private SimpleDateFormat sdfCompleto = new SimpleDateFormat("EEEE, dd MMMM yyyy");
 
     private int anio;
     private int mes;
@@ -74,7 +82,7 @@ public class CalendarioActivity extends AppCompatActivity {
     private String horaP;
     private String minP;
     private PartidoRecyclerViewAdapter partidoAdapter;
- //   private List<Partido> partidos;
+    //   private List<Partido> partidos;
     private DatabaseReference refFecha;
 
 
@@ -83,11 +91,13 @@ public class CalendarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
         atarComponentes();
+
         cargarEquipos();
         cargarSpinnerHora();
         desplazarPantalla();
         tomarPosicionEquipos();
         //partidos = new ArrayList<Partido>();
+
         database = FirebaseDatabase.getInstance();
         adpE1 = new CalendarioAdapter(getApplicationContext(), equipo1);
         lvEquipoUno.setAdapter(adpE1);
@@ -130,7 +140,9 @@ public class CalendarioActivity extends AppCompatActivity {
                 Calendar mcurrentDate = Calendar.getInstance();
                 anio = mcurrentDate.get(Calendar.YEAR);
                 mes = mcurrentDate.get(Calendar.MONTH);
-                dia = mcurrentDate.get(Calendar.DAY_OF_MONTH);
+                dia = mcurrentDate.get(Calendar.DAY_OF_WEEK);
+
+
                 final DatePickerDialog mDatePicker = new DatePickerDialog
                         (CalendarioActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -142,7 +154,8 @@ public class CalendarioActivity extends AppCompatActivity {
                                 c.set(selectedyear, selectedmonth, selectedday);
                                 fechaProgramacion = c.getTime();
                                 etFechaPartido.setText(sdfCompleto.format(fechaProgramacion));
-                                fechaMod = sdf.format(fechaProgramacion);
+                                fechaMod = sdfCompleto.format(fechaProgramacion);
+
                                 Log.d("PULPOLOG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
                             }
                         }, anio, mes, dia);
@@ -161,6 +174,7 @@ public class CalendarioActivity extends AppCompatActivity {
         lvEquipoDos = findViewById(R.id.lvEquipo2);
         tvEquipo1 = findViewById(R.id.tvEquipo1);
         tvEquipo2 = findViewById(R.id.tvEquipo2);
+        tvNumeroFecha = findViewById(R.id.tvnumFecha);
         spHora = findViewById(R.id.spHora);
         spMiunuto = findViewById(R.id.spMinuto);
         etFechaPartido = findViewById(R.id.etFecha);
@@ -272,21 +286,32 @@ public class CalendarioActivity extends AppCompatActivity {
 
     private boolean validarValores() {
         boolean valor = false;
+        if ((tvNumeroFecha.getText().toString() == null)) {
+            Toast.makeText(getApplicationContext(), "Ingrese un número de fecha ", Toast.LENGTH_LONG).show();
+            tvNumeroFecha.requestFocus();
+            tvNumeroFecha.setError("El valor es obligatorio");
+            valor = false;
+        }
+
         if ((tvEquipo1.getText().toString() != null) && (tvEquipo2.getText().toString() != null)) {
             codPartido = equipo1Seleccionado.getNombreEquipo().toString() + "_" + equipo2Seleccionado.getNombreEquipo().toString();
             partido.setId(codPartido);
             PulpoSingleton.getInstance().setCodigoPartido(codPartido);
             valor = true;
         } else {
+
+
             Toast.makeText(getApplicationContext(), "Seleccione un equipo", Toast.LENGTH_LONG).show();
             valor = false;
         }
+
         return valor;
     }
 
     private void guardarFecha() {
         if (validarValores()) {
-
+            PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
+            Log.d(Rutas.TAG, "El valor del numero de fecha del calendario es######  " + PulpoSingleton.getInstance().getNumeroFechaP());
             Log.d(Rutas.TAG, "El valor del codPartido dentro de guardar fecha es " + codPartido.toString());
             horaP = spHora.getSelectedItem().toString();
             minP = spMiunuto.getSelectedItem().toString();
@@ -296,17 +321,28 @@ public class CalendarioActivity extends AppCompatActivity {
             partido.setPuntosEquiDos("0");
             partido.setHora(horaP);
             partido.setMinuto(minP);
+            partido.setFecha(fechaMod);
+            partido.setCategoria(PulpoSingleton.getInstance().getCodigoCategoria());
             refFecha = database.getReference(Rutas.CALENDARIO)
                     .child(Rutas.ROOT_TORNEOS)
                     .child(PulpoSingleton.getInstance().getCodigoTorneo())
-                    .child(Rutas.CATEGORIAS).child(PulpoSingleton.getInstance().getCodigoCategoria())
-                    .child(fechaMod)
-                    .child(codPartido);
+                    .child(PulpoSingleton.getInstance().getNumeroFechaP())
+                    .child(PulpoSingleton.getInstance().getCodigoPartido())
+            ;
+
+
             refFecha.setValue(partido);
-      //      partidos=PulpoSingleton.getInstance().getPartidos();
-        //    Log.d(Rutas.TAG,"El numero de partidos que tiene la lista es/////// "+partidos.size());
-         //   partidos.add(partido);
+
+            Log.d(Rutas.TAG, "El valor del codigo del numero de fecha es " + PulpoSingleton.getInstance().getNumeroFechaP());
+
+            //      partidos=PulpoSingleton.getInstance().getPartidos();
+            //    Log.d(Rutas.TAG,"El numero de partidos que tiene la lista es/////// "+partidos.size());
+            //   partidos.add(partido);
             PulpoSingleton.getInstance().setCodigoPartido(codPartido);
+            Log.d(Rutas.TAG, "El valor del numero del codigo del partido es " + PulpoSingleton.getInstance().getCodigoPartido());
+            // PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
+
+
             //Agrego el Listener luego de tener insertado un partido
 
            /* if (partidos != null) {
@@ -317,8 +353,8 @@ public class CalendarioActivity extends AppCompatActivity {
             Toast.makeText(this, "Se registro el Partido " + partido.getEquipoUno().toString() + partido.getEquipoDos().toString(), Toast.LENGTH_SHORT).show();
             Log.d("PULPOLOG", "Se registro el partido");
 
-           // partidoAdapter = new PartidoRecyclerViewAdapter(partidos);
-           // PulpoSingleton.getInstance().setPartidoAdapter(partidoAdapter);
+            // partidoAdapter = new PartidoRecyclerViewAdapter(partidos);
+            // PulpoSingleton.getInstance().setPartidoAdapter(partidoAdapter);
 
 
         } else {

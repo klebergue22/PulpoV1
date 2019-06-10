@@ -36,6 +36,7 @@ public class PulpoSingleton {
     private String nombreTorneo;
     private String nombreEquipo;
     private String categoria;
+    private String numeroFechaP=null;
     private List<Equipo> equipos;
     private List<Partido> partidos;
     private List<Rol> roles;
@@ -60,8 +61,19 @@ public class PulpoSingleton {
             database = FirebaseDatabase.getInstance();
 
 
+
+
         }
         return instancia;
+    }
+
+    public String getNumeroFechaP() {
+
+        return numeroFechaP;
+    }
+
+    public void setNumeroFechaP(String numeroFechaP) {
+        this.numeroFechaP = numeroFechaP;
     }
 
     public String getCodigoPartido() {
@@ -134,6 +146,7 @@ public class PulpoSingleton {
     }
 
     public void setCategoria(String categoria) {
+
         this.categoria = categoria;
     }
 
@@ -197,6 +210,7 @@ public class PulpoSingleton {
                     Log.d(Rutas.TAG, "El partido recuperado es " + partido.toString());
                     //2. ACTUALIZAR (NO INSERTAR!!!! ACTUALIZAR) los puntos del equipo1 y del equipo2 del equipo seleccionado
                     // --- Armar la ruta hasta llegar al valor que se quiere modificar osea hasta el atributo que guarda los puntos de cada equipo
+                    Log.d(Rutas.TAG,"El valor del codigoTorneo es "+codigoTorneo);
                     resultadosDBReference = database.
                             getReference(Rutas.CALENDARIO).
                             child(Rutas.ROOT_TORNEOS).
@@ -332,15 +346,18 @@ public class PulpoSingleton {
 
 
     public void setPartidoFirabaseListener() {
+
+
+        Log.d(Rutas.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
+        Log.d(Rutas.TAG, "El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
         Log.d(Rutas.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
         //1.-Referencia al arbol
         partidosDBReference = database.
                 getReference(Rutas.CALENDARIO).
                 child(Rutas.ROOT_TORNEOS).
-                child(codigoTorneo).
-                child(Rutas.CATEGORIAS).
-                child(codigoCategoria).
-                child(Rutas.FECHA);
+                child(codigoTorneo).child("1")
+                ;
+
 
 
         Log.d("PULPOLOG", "PATH en Partidos>>" + partidosDBReference.getPath());

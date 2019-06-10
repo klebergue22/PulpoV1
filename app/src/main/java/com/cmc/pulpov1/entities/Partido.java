@@ -2,18 +2,23 @@ package com.cmc.pulpov1.entities;
 
 public class Partido {
     private String id;
+    private String fecha;
+    private String categoria;
     private String equipoUno;
     private String equipoDos;
     private String puntosEquipoUno;
     private String puntosEquiDos;
     private String hora;
     private String minuto;
+
     public Partido(){
 
     }
 
-    public Partido(String id, String equipoUno, String equipoDos, String puntosEquipoUno, String puntosEquiDos, String hora, String minuto) {
+    public Partido(String id, String fecha, String categoria, String equipoUno, String equipoDos, String puntosEquipoUno, String puntosEquiDos, String hora, String minuto) {
         this.id = id;
+        this.fecha = fecha;
+        this.categoria = categoria;
         this.equipoUno = equipoUno;
         this.equipoDos = equipoDos;
         this.puntosEquipoUno = puntosEquipoUno;
@@ -28,6 +33,22 @@ public class Partido {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public String getEquipoUno() {
@@ -76,18 +97,5 @@ public class Partido {
 
     public void setMinuto(String minuto) {
         this.minuto = minuto;
-    }
-
-    @Override
-    public String toString() {
-        return "Partido{" +
-                "id='" + id + '\'' +
-                ", equipoUno='" + equipoUno + '\'' +
-                ", equipoDos='" + equipoDos + '\'' +
-                ", puntosEquipoUno='" + puntosEquipoUno + '\'' +
-                ", puntosEquiDos='" + puntosEquiDos + '\'' +
-                ", hora='" + hora + '\'' +
-                ", minuto='" + minuto + '\'' +
-                '}';
     }
 }

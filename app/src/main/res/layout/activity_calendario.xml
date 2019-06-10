@@ -159,7 +159,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvnumFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
