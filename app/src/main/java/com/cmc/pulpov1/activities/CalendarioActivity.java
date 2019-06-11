@@ -1,6 +1,7 @@
 package com.cmc.pulpov1.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -84,12 +85,17 @@ public class CalendarioActivity extends AppCompatActivity {
     private PartidoRecyclerViewAdapter partidoAdapter;
     //   private List<Partido> partidos;
     private DatabaseReference refFecha;
+    private String numFecha;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
+        Intent intent = getIntent();
+        numFecha=intent.getStringExtra("numFecha");
+        Log.d(Rutas.TAG,"El valor que se recupera es "+numFecha);
+
         atarComponentes();
 
         cargarEquipos();
@@ -110,7 +116,7 @@ public class CalendarioActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 guardarFecha();
-                finish();
+                navIrListaPartidos();
 
             }
         });
@@ -175,6 +181,7 @@ public class CalendarioActivity extends AppCompatActivity {
         tvEquipo1 = findViewById(R.id.tvEquipo1);
         tvEquipo2 = findViewById(R.id.tvEquipo2);
         tvNumeroFecha = findViewById(R.id.tvnumFecha);
+        tvNumeroFecha.setText(PulpoSingleton.getInstance().getNumeroFechaP());
         spHora = findViewById(R.id.spHora);
         spMiunuto = findViewById(R.id.spMinuto);
         etFechaPartido = findViewById(R.id.etFecha);
@@ -310,7 +317,8 @@ public class CalendarioActivity extends AppCompatActivity {
 
     private void guardarFecha() {
         if (validarValores()) {
-            PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
+            //PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
+            PulpoSingleton.getInstance().setNumeroFechaP(numFecha);
             Log.d(Rutas.TAG, "El valor del numero de fecha del calendario es######  " + PulpoSingleton.getInstance().getNumeroFechaP());
             Log.d(Rutas.TAG, "El valor del codPartido dentro de guardar fecha es " + codPartido.toString());
             horaP = spHora.getSelectedItem().toString();
@@ -340,7 +348,7 @@ public class CalendarioActivity extends AppCompatActivity {
             //   partidos.add(partido);
             PulpoSingleton.getInstance().setCodigoPartido(codPartido);
             Log.d(Rutas.TAG, "El valor del numero del codigo del partido es " + PulpoSingleton.getInstance().getCodigoPartido());
-            // PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
+            PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
 
 
             //Agrego el Listener luego de tener insertado un partido
@@ -363,6 +371,15 @@ public class CalendarioActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void navIrListaPartidos() {
+        Intent intent = new Intent(this, ListaPartidosActivity.class);
+        intent.putExtra("numFecha",numFecha);
+        Log.d(Rutas.TAG,"El valor enviado en crearFechas hacia la lista de fechas es  es  "+numFecha);
+        PulpoSingleton.getInstance().setNumeroFechaP(numFecha);
+
+        startActivity(intent);
     }
 
 

@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
-import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.activities.CalendarioActivity;
 import com.cmc.pulpov1.entities.Partido;
 
@@ -36,8 +35,8 @@ public class PartidoHolder extends RecyclerView.ViewHolder implements View.OnCli
         tvMinuto = itemView.findViewById(R.id.tvValorMinuto);
         tvEquipo1 = itemView.findViewById(R.id.txEquipo1);
         tvEquipo2 = itemView.findViewById(R.id.txEquipo2);
-        tvCategoria = itemView.findViewById(R.id.tvCategoria);
-        tvFecha=itemView.findViewById(R.id.tvFecha);
+        tvCategoria = itemView.findViewById(R.id.tvCategoriaFecha);
+        tvFecha=itemView.findViewById(R.id.tvFechaF);
         itemView.setOnClickListener(this);
     }
 
@@ -49,7 +48,7 @@ public class PartidoHolder extends RecyclerView.ViewHolder implements View.OnCli
         tvCategoria.setText(p.getCategoria());
        // nuevaFecha = sdf.parse();
         nuevaFecha=ParseFecha(p.getFecha().toString());
-        Log.d(Rutas.TAG,"El valor de la fecha es  PartidoHolder "+nuevaFecha);
+        //Log.d(Rutas.TAG,"El valor de la fecha es  PartidoHolder "+nuevaFecha);
 
        // p.setFecha(nuevaFecha);
         tvFecha.setText(p.getFecha());

@@ -70,6 +70,13 @@
     <string name="app_fech_equipo2">Equipo 2</string>
     <string name="app_fech_hora">Hora</string>
     <string name="app_fecha">Fecha</string>
+    <string name="app_fecha_numFecha">Número de Fecha</string>
+    <string name="app_fecha_dia1">Día 1</string>
+    <string name="app_fecha_dia2">Día 2</string>
+    <string name="app_fecha_dia3">Día 3</string>
+    <string name="app_fecha_cancha1">Cancha 1</string>
+    <string name="app_fecha_cancha2">Cancha 2</string>
+    <string name="app_fecha_partidos">Partidos</string>
 
 
     <string name="tab_text_1">Equipos</string>

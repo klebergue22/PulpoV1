@@ -112,7 +112,7 @@ public class TabsActivity extends AppCompatActivity {
 
 
     private void navNuevoEquipo() {
-        Intent intent = new Intent(this, CalendarioActivity.class);
+        Intent intent = new Intent(this, CrearFechasActivity.class);
         startActivity(intent);
     }
 

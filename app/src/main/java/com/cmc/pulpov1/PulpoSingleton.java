@@ -1,5 +1,6 @@
 package com.cmc.pulpov1;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -7,8 +8,10 @@ import android.view.View;
 
 import com.cmc.pulpov1.adapters.EquipoRecyclerViewAdapter;
 import com.cmc.pulpov1.adapters.PartidoRecyclerViewAdapter;
+import com.cmc.pulpov1.adapters.PartidosAdapter;
 import com.cmc.pulpov1.adapters.ResultadoRecyclerViewAdapter;
 import com.cmc.pulpov1.entities.Equipo;
+import com.cmc.pulpov1.entities.Fecha;
 import com.cmc.pulpov1.entities.Jugador;
 import com.cmc.pulpov1.entities.Partido;
 import com.cmc.pulpov1.entities.Rol;
@@ -36,12 +39,14 @@ public class PulpoSingleton {
     private String nombreTorneo;
     private String nombreEquipo;
     private String categoria;
-    private String numeroFechaP=null;
+    private String numeroFechaP = null;
     private List<Equipo> equipos;
     private List<Partido> partidos;
     private List<Rol> roles;
+    private List<Fecha> fechas;
     private Jugador jugador;
     private Partido partido;
+   private static Context context;
 
 
     private List<Partido> resultadoPartido;
@@ -53,6 +58,7 @@ public class PulpoSingleton {
     private EquipoRecyclerViewAdapter equiposAdapter;
     private PartidoRecyclerViewAdapter partidoAdapter;
     private ResultadoRecyclerViewAdapter resultadoAdapter;
+    private PartidosAdapter partidosAdapter;
     private UsuarioRol usuarioLogueado;
 
     public static PulpoSingleton getInstance() {
@@ -61,15 +67,39 @@ public class PulpoSingleton {
             database = FirebaseDatabase.getInstance();
 
 
-
-
         }
         return instancia;
+    }
+
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+
+        this.context = context.getApplicationContext();
+    }
+
+    public PartidosAdapter getPartidosAdapter() {
+        return partidosAdapter;
+    }
+
+    public void setPartidosAdapter(PartidosAdapter partidosAdapter) {
+        this.partidosAdapter = partidosAdapter;
     }
 
     public String getNumeroFechaP() {
 
         return numeroFechaP;
+    }
+
+    public List<Fecha> getFechas() {
+        return fechas;
+    }
+
+    public void setFechas(List<Fecha> fechas) {
+        this.fechas = fechas;
     }
 
     public void setNumeroFechaP(String numeroFechaP) {
@@ -201,6 +231,7 @@ public class PulpoSingleton {
 
             partidoAdapter = new PartidoRecyclerViewAdapter(partidos);
             equiposAdapter = new EquipoRecyclerViewAdapter(equipos);
+          //  partidosAdapter = new PartidosAdapter(context, partidos);
             resultadoAdapter = new ResultadoRecyclerViewAdapter(partidos, new ResultadoRecyclerViewAdapter.ResultadoAdapterListener() {
                 @Override
                 public void guardarResultado(View v, int position, int puntosEquipo1, int intPuntosEquipo2) {
@@ -210,7 +241,7 @@ public class PulpoSingleton {
                     Log.d(Rutas.TAG, "El partido recuperado es " + partido.toString());
                     //2. ACTUALIZAR (NO INSERTAR!!!! ACTUALIZAR) los puntos del equipo1 y del equipo2 del equipo seleccionado
                     // --- Armar la ruta hasta llegar al valor que se quiere modificar osea hasta el atributo que guarda los puntos de cada equipo
-                    Log.d(Rutas.TAG,"El valor del codigoTorneo es "+codigoTorneo);
+                    Log.d(Rutas.TAG, "El valor del codigoTorneo es " + codigoTorneo);
                     resultadosDBReference = database.
                             getReference(Rutas.CALENDARIO).
                             child(Rutas.ROOT_TORNEOS).
@@ -245,6 +276,7 @@ public class PulpoSingleton {
 
         }
     }
+
 
     public void setRoles(Rol rol) {
         Log.d("PULPOLOG", "rol guardado" + rol);
@@ -349,15 +381,15 @@ public class PulpoSingleton {
 
 
         Log.d(Rutas.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
-        Log.d(Rutas.TAG, "El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
+        Log.d(Rutas.TAG, "*************El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
         Log.d(Rutas.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
         //1.-Referencia al arbol
         partidosDBReference = database.
                 getReference(Rutas.CALENDARIO).
                 child(Rutas.ROOT_TORNEOS).
-                child(codigoTorneo).child("1")
-                ;
-
+                child(codigoTorneo)
+                .child("1")
+        ;
 
 
         Log.d("PULPOLOG", "PATH en Partidos>>" + partidosDBReference.getPath());
@@ -369,8 +401,10 @@ public class PulpoSingleton {
                 Log.d("PULPOLOG", "onChildAdded de partido ....... datasnapshot" + dataSnapshot);
                 partido = dataSnapshot.getValue(Partido.class);
                 partidos.add(partido);
+//                partidosAdapter.notifyDataSetChanged();
                 partidoAdapter.notifyDataSetChanged();
                 resultadoAdapter.notifyDataSetChanged();
+
 
             }
 
@@ -393,6 +427,7 @@ public class PulpoSingleton {
                     partidos.remove(posicionRepetido);
                     partidoAdapter.notifyDataSetChanged();
                     resultadoAdapter.notifyDataSetChanged();
+               //     partidosAdapter.notifyDataSetChanged();
                 }
 
             }

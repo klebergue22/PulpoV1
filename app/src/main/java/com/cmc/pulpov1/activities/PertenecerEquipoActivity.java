@@ -3,7 +3,6 @@ package com.cmc.pulpov1.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class PertenecerEquipoActivity extends AppCompatActivity {
         nombreCategoria = PulpoSingleton.getInstance().getCodigoCategoria();
         nombreEquipo = PulpoSingleton.getInstance().getNombreEquipo();
         tvNombreTorneo = findViewById(R.id.tvNombreTorneo);
-        tvCategoria = findViewById(R.id.tvCategoria);
+        tvCategoria = findViewById(R.id.tvCategoriaFecha);
         tvNombreEquipo = findViewById(R.id.tvNombreEquipo);
         btnGuardar = findViewById(R.id.btnGuardar);
         tvNombreEquipo.setText(nombreEquipo);

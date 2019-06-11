@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/pulpo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.PertenecerEquipoActivity"></activity>
+        <activity android:name=".activities.ListaPartidosActivity"></activity>
+        <activity android:name=".activities.CrearFechasActivity" />
+        <activity android:name=".activities.PertenecerEquipoActivity" />
         <activity android:name=".activities.CategoriaActivity" />
         <activity android:name=".activities.ListaJugadoresActivity" />
-
-
         <activity android:name=".activities.CalendarioActivity" />
         <activity
             android:name=".activities.TabsActivity"

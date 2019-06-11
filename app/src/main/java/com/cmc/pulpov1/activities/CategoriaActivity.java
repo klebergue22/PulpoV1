@@ -1,5 +1,6 @@
 package com.cmc.pulpov1.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public class CategoriaActivity extends AppCompatActivity {
     private List<String> categorias;
     private ListView lvCategorias;
     private String categoriaSeleccionada;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,9 @@ public class CategoriaActivity extends AppCompatActivity {
 
         //Intent intent = new Intent(this, TabsActivity.class);
         Intent intent = new Intent(this, TabsActivity.class);
+
+        context=getApplicationContext();
+        PulpoSingleton.getInstance().setContext(context);
 
 
 

@@ -66,7 +66,7 @@ public class PartidoAdapter extends ArrayAdapter<Partido> {
         tvHora.setText(partidoActual.getHora());
         tvMinuto = viewItem.findViewById(R.id.tvValorMinuto);
         tvMinuto.setText(partidoActual.getMinuto());
-        tvFecha = viewItem.findViewById(R.id.tvFecha);
+        tvFecha = viewItem.findViewById(R.id.tvFechaF);
         fechaI=ParseFecha(partidoActual.getFecha());
         Log.d(Rutas.TAG,"El valor de la fecha I es "+fechaI);
 
@@ -75,7 +75,7 @@ public class PartidoAdapter extends ArrayAdapter<Partido> {
 
 
         tvMinuto.setText(partidoActual.getFecha());
-        tvCategoria = viewItem.findViewById(R.id.tvCategoria);
+        tvCategoria = viewItem.findViewById(R.id.tvCategoriaFecha);
         tvCategoria.setText(partidoActual.getCategoria());
 
         return viewItem;

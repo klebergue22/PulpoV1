@@ -10,6 +10,7 @@ public interface Rutas {
     String JUGADORES="jugadores";
     String ESTADO="estado";
     String CALENDARIO="calendario";
+    String FECHAS="fechas";
     String FECHA="20190331";
     String TAG="PULPOLOG";
 
