@@ -272,7 +272,7 @@ public class CrearFechasActivity extends AppCompatActivity {
 
 
     public void navIrListaPartidos() {
-        Intent intent = new Intent(this, CalendarioActivity.class);
+        Intent intent = new Intent(this, ListaPartidosActivity.class);
         intent.putExtra("numFecha",numeroFecha);
         Log.d(Rutas.TAG,"El valor enviado en crearFechas es nav irLista   "+numeroFecha);
         PulpoSingleton.getInstance().setNumeroFechaP(numeroFecha);
