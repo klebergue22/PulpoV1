@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cmc.pulpov1.R;
@@ -16,8 +15,8 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
 
     private TextView tvEquipo1;
     private TextView tvEquipo2;
-    private EditText tvPtosE1;
-    private EditText tvPtosE2;
+    private TextView tvPtosE1;
+    private TextView tvPtosE2;
     private Button btnGuardarResultado;
     private View.OnClickListener listener;
     public ResultadoRecyclerViewAdapter.ResultadoAdapterListener onClickListener;

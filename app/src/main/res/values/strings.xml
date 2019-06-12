@@ -65,6 +65,7 @@
     <string name="app_par_agregar">Agregar Programación</string>
     <string name="app_par_vs">Vs</string>
     <string name="app_par_dosPuntos">:</string>
+    <string name="app_par_editar">Editar</string>
 
     <string name="app_fech_equipo1">Equipo 1</string>
     <string name="app_fech_equipo2">Equipo 2</string>
