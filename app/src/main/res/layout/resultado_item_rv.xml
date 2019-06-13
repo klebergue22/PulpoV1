@@ -48,7 +48,7 @@
         android:layout_width="83dp"
         android:layout_height="22dp"
         android:background="@color/colorPrimary"
-        android:text="@string/app_btnGuardar"
+        android:text="@string/app_par_editar"
         android:textAllCaps="false"
         android:textColor="@color/letrasBoton"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
