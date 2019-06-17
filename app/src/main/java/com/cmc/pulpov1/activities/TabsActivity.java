@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
+import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.adapters.ViewPagerAdapter;
 import com.cmc.pulpov1.entities.Rol;
 
@@ -39,8 +40,9 @@ public class TabsActivity extends AppCompatActivity {
         codigoCategoria = PulpoSingleton.getInstance().getCodigoCategoria();
         codigoTorneo = PulpoSingleton.getInstance().getCodigoTorneo();
 
-        Log.w("PULPOLOG", "EL VALOR DEL CODIGO TORNEO ES " + codigoTorneo);
+        Log.w("PULPOLOG", "EL VALOR DEL CODIGO TORNEO ES  TABS ACTIVITY " + codigoTorneo);
         Log.w("PULPOLOG", "EL VALOR DEL CODIGO CATEGORIA ES " + codigoCategoria);
+        Log.w(Rutas.TAG,"El NUMERO DE LA FECHA ES *******"+PulpoSingleton.getInstance().getNumeroFechaP());
 
         Toast.makeText(TabsActivity.this, "El VALOR DEL CODIGO DEL TORNEO ES " + codigoTorneo + "Valor CATEGORIA" + codigoCategoria, Toast.LENGTH_SHORT).show();
 
@@ -94,10 +96,9 @@ public class TabsActivity extends AppCompatActivity {
             return false;
         }
 
-        Log.w("PULPOLOG", "valor del codigo del torneo en el IF " + codigoTorneo);
 
         if (codigoTorneo.equals(PulpoSingleton.getInstance().getCodigoTorneo()))
-            Log.w("PULPOLOG", "VALOR DENTRO DEL IF " + codigoTorneo);
+            Log.w("PULPOLOG", "VALOR DENTRO DEL IF   TABS ACTIVITY " + codigoTorneo);
 
         Map<String, Rol> roles = PulpoSingleton.getInstance().getUsuarioLogueado().getRoles();
         for (String clave : roles.keySet()) {

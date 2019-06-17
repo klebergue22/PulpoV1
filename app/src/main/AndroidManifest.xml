@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/pulpo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResultadoActivity"></activity>
+        <activity android:name=".activities.ResultadoActivity"></activity>
         <activity android:name=".activities.ListaPartidosActivity" />
         <activity android:name=".activities.CrearFechasActivity" />
         <activity android:name=".activities.PertenecerEquipoActivity" />

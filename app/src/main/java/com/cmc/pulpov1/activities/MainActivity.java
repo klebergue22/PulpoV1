@@ -8,7 +8,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -170,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean validarCampos() {
         boolean correcto = true;
-        Log.w("PULPOLOG", "ingreso al Metodo validarCampos MainActivity() ");
+       // Log.w("PULPOLOG", "ingreso al Metodo validarCampos MainActivity() ");
         if (etMail.getText() != null && etMail.getText().toString().isEmpty()) {
             etMail.requestFocus();
             etMail.setError("El correo es obligatorio");

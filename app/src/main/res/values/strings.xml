@@ -20,6 +20,7 @@
     <string name="app_btnVerListaT">Ver Lista de Torneos</string>
     <string name="app_btnGuardar">Guardar</string>
     <string name="app_btnAprobar">Aprobar</string>
+    <string name="app_btnFinalizar">Finalizar</string>
 
 
     <string name="app_id">Id</string>
@@ -86,6 +87,7 @@
     <string name="tab_text_4">Posiciones</string>
 
     <string name="app_ser_par_equipo">NRegistrar Fecha</string>
+    <string name="app_btn_Finalizar">Finalizar</string>
 
 
 </resources>

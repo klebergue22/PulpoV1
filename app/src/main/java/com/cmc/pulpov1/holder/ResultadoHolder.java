@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
-import com.cmc.pulpov1.ResultadoActivity;
+import com.cmc.pulpov1.activities.ResultadoActivity;
+import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.adapters.ResultadoRecyclerViewAdapter;
 import com.cmc.pulpov1.entities.Partido;
 
@@ -20,7 +20,7 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
     private TextView tvEquipo2;
     private TextView tvPtosE1;
     private TextView tvPtosE2;
-    private Button btnGuardarResultado;
+
     private View.OnClickListener listener;
     public ResultadoRecyclerViewAdapter.ResultadoAdapterListener onClickListener;
 
@@ -33,17 +33,27 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
         tvEquipo2 = itemView.findViewById(R.id.nombreEq02);
         tvPtosE1=itemView.findViewById(R.id.txtPtosE01);
         tvPtosE2=itemView.findViewById(R.id.txtPtosE02);
-        btnGuardarResultado=itemView.findViewById(R.id.btnGuardarResultados);
-        this.onClickListener=listener;
-        itemView.setOnClickListener(this);
 
+       // this.onClickListener=listener;
+        //itemView.setOnClickListener(this);
 
-        btnGuardarResultado.setOnClickListener(new View.OnClickListener() {
+        itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickListener.guardarResultado(v,getAdapterPosition(),Integer.parseInt(tvPtosE1.getText().toString()),Integer.parseInt(tvPtosE2.getText().toString()));
+                Log.d(Rutas.TAG,"El valor es el siguiente ");
+                int pos = getAdapterPosition();
+                Log.d("PULPOLOG", "la posicion en el ResultadoHOLDER es  " + pos + "Resultado Holder");
+                Partido partidoSeleccionado= PulpoSingleton.getInstance().getPartidos().get(pos);
+                PulpoSingleton.getInstance().setPartido(partidoSeleccionado);
+                Intent intent = new Intent(v.getContext(), ResultadoActivity.class);
+                v.getContext().startActivity(intent);
+               // onClickListener.guardarResultado(v,getAdapterPosition(),Integer.parseInt(tvPtosE1.getText().toString()),Integer.parseInt(tvPtosE2.getText().toString()));
+
             }
         });
+
+
+
     }
 
 
@@ -63,12 +73,7 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View v) {
-        int pos = getAdapterPosition();
-        Log.d("PULPOLOG", "la posicion en el ResultadoHOLDER es  " + pos + "Resultado Holder");
-        Partido partidoSeleccionado= PulpoSingleton.getInstance().getPartidos().get(pos);
-        PulpoSingleton.getInstance().setPartido(partidoSeleccionado);
-        Intent intent = new Intent(v.getContext(), ResultadoActivity.class);
-        v.getContext().startActivity(intent);
+
 
 
 

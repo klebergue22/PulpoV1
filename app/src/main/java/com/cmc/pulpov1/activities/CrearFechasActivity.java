@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
@@ -18,11 +19,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.entities.Fecha;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -262,9 +266,23 @@ public class CrearFechasActivity extends AppCompatActivity {
         refFechas = database.getReference(Rutas.FECHAS)
                 .child(PulpoSingleton.getInstance().getCodigoTorneo())
                 .child(numeroFecha);
-        refFechas.setValue(fecha);
+        refFechas.setValue(fecha).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getApplicationContext(),"Se inserto correctamente la fecha",Toast.LENGTH_LONG).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"No se inserto correctamente la fecha",Toast.LENGTH_LONG).show();
+            }
+        });
         fechas.add(fecha);
         PulpoSingleton.getInstance().setFechas(fechas);
+        PulpoSingleton.getInstance().setNumeroFechaP(numeroFecha);
+        limpiar();
+
 
 
     }
@@ -277,6 +295,15 @@ public class CrearFechasActivity extends AppCompatActivity {
         Log.d(Rutas.TAG,"El valor enviado en crearFechas es nav irLista   "+numeroFecha);
         PulpoSingleton.getInstance().setNumeroFechaP(numeroFecha);
         startActivity(intent);
+    }
+    public void limpiar(){
+
+        etDia1.setText("");
+        etDia2.setText("");
+        etDia3.setText("");
+        etCancha1.setText("");
+        etCancha2.setText("");
+
     }
 
 

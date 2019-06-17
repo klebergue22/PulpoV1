@@ -151,12 +151,12 @@ public class CrearCuentaActivity extends AppCompatActivity {
         //creo un objeto persona para poder realizar la insercion
 
         persona.setNombre(etNombre.getText().toString());
-        Log.d("PULPOLOG", "NOMBRE PERSONA" + etNombre.getText().toString()+"CrearCuentaActivity");
+      //  Log.d("PULPOLOG", "NOMBRE PERSONA" + etNombre.getText().toString()+"CrearCuentaActivity");
         persona.setApellido(etApellido.getText().toString());
         // persona.setCorreo(etCorreoE.getText().toString())
 
         mailC = IdentificadorUtils.crearIdentificacionMail(etCorreoE.getText().toString());
-        Log.d("PULPOLOG", "EL VALOR DEL CORREO ES " + mailC+"CrearCuentaActivity");
+      //  Log.d("PULPOLOG", "EL VALOR DEL CORREO ES " + mailC+"CrearCuentaActivity");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef1 = database.
                 getReference(Rutas.USUARIOS);
@@ -165,7 +165,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
         Toast.makeText(this,
                 "Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString(), Toast.LENGTH_LONG).show();
-        Log.d("PULPOLOG", "Se inserto el USUARIO EN EL ROL"+"CrearCuentaActivity");
+      //  Log.d("PULPOLOG", "Se inserto el USUARIO EN EL ROL"+"CrearCuentaActivity");
 
     }
 

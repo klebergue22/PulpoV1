@@ -49,6 +49,7 @@ public class ResultadoRecyclerViewAdapter extends RecyclerView.Adapter<Resultado
 
         Log.d("PULPOLOG","Holder de resultados  "+partidos.size());
         Log.d("PULPOLOG","INGRESA EN EL METODO ONCLICK RV DEL BOTON"+partidoActual.toString());
+//        Log.d(Rutas.TAG,"El valor del numero de partido es "+PulpoSingleton.getInstance().getNumeroFechaP().toString());
         database = FirebaseDatabase.getInstance();
        /* FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference refResultado = database.

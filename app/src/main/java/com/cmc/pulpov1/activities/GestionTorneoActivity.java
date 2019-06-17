@@ -21,15 +21,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.cmc.pulpov1.IdentificadorUtils;
-import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
-import com.cmc.pulpov1.entities.UsuarioRol;
 import com.cmc.pulpov1.entities.Rol;
 import com.cmc.pulpov1.entities.Torneo;
+import com.cmc.pulpov1.entities.UsuarioRol;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -96,9 +94,9 @@ public class GestionTorneoActivity extends AppCompatActivity {
         btnCrearTorneo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
+             //   Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
                 ingresar();
-                Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
+               // Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
 
 
             }

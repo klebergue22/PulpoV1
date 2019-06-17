@@ -98,4 +98,19 @@ public class Partido {
     public void setMinuto(String minuto) {
         this.minuto = minuto;
     }
+
+    @Override
+    public String toString() {
+        return "Partido{" +
+                "id='" + id + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", equipoUno='" + equipoUno + '\'' +
+                ", equipoDos='" + equipoDos + '\'' +
+                ", puntosEquipoUno='" + puntosEquipoUno + '\'' +
+                ", puntosEquiDos='" + puntosEquiDos + '\'' +
+                ", hora='" + hora + '\'' +
+                ", minuto='" + minuto + '\'' +
+                '}';
+    }
 }

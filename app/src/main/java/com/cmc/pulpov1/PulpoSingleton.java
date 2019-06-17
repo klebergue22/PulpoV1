@@ -214,7 +214,7 @@ public class PulpoSingleton {
     }
 
     public void setCodigoTorneo(String codigoTorneo) {
-        Log.v("PULPOLOG", "codigo torneo" + codigoTorneo);
+      //  Log.v("PULPOLOG", "codigo torneo" + codigoTorneo);
         if (!codigoTorneo.equals(this.codigoTorneo)) {
             this.codigoTorneo = codigoTorneo;
             codigoCategoria = null;
@@ -222,7 +222,7 @@ public class PulpoSingleton {
     }
 
     public void setCodigoCategoria(final String codigoCategoria) {
-        Log.v("PULPOLOG", "codigo categoria" + codigoCategoria);
+       // Log.v("PULPOLOG", "codigo categoria" + codigoCategoria);
         if (!codigoCategoria.equals(this.codigoCategoria)) {
             this.codigoCategoria = codigoCategoria;
             equipos = new ArrayList<Equipo>();

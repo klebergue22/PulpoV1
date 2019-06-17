@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultadoActivity">
+    tools:context=".activities.ResultadoActivity">
 
     <TextView
         android:id="@+id/tvEquip1"
@@ -24,7 +24,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Valor"
-        android:inputType="textPersonName"
+
+        android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/tvEquip1"
         app:layout_constraintTop_toTopOf="@+id/guideline22" />
 
@@ -53,7 +54,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Valor"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintStart_toEndOf="@+id/tvEquip2"
         app:layout_constraintTop_toBottomOf="@+id/etValor1" />
 

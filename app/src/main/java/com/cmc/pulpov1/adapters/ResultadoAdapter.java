@@ -7,12 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
-import com.cmc.pulpov1.ResultadoActivity;
+import com.cmc.pulpov1.activities.ResultadoActivity;
 import com.cmc.pulpov1.entities.Partido;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class ResultadoAdapter extends ArrayAdapter<Partido> {
 
     private EditText etPuntosE1;
     private EditText etPuntosE2;
-    private Button btnGuardarResultado;
+
 
 
     public ResultadoAdapter(Context context, List<Partido> partidos) {
@@ -64,15 +63,15 @@ public class ResultadoAdapter extends ArrayAdapter<Partido> {
         Log.d("PULPOLOG", "VALOR DEL LOG " + partidoActual.toString());
         partidos.set(position, partidoActual);
         PulpoSingleton.getInstance().setPartidos(partidos);
-        btnGuardarResultado = viewItem.findViewById(R.id.btnGuardarResultados);
 
-        btnGuardarResultado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navIrResultados();
+convertView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        navIrResultados();
 
-            }
-        });
+    }
+});
+
 
         return viewItem;
     }

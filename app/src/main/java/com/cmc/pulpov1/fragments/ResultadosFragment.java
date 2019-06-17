@@ -21,22 +21,19 @@ import java.util.List;
 public class ResultadosFragment extends Fragment {
     RecyclerView recyclerView;
     private List<Partido> partidos;
-    private Button btnPrueba;
-
-
+    private Button btnFinalizar;
 
 
     @Override
-    public void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.resultados_fragment, container, false);
+        View view = inflater.inflate(R.layout.resultados_fragment, container, false);
 
         return view;
     }
@@ -44,9 +41,26 @@ public class ResultadosFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        partidos=new ArrayList<Partido>();
+        partidos = new ArrayList<Partido>();
+        partidos = PulpoSingleton.getInstance().getPartidos();
+        Log.d(Rutas.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
+        Log.d(Rutas.TAG,"El valor de la fecha es"+PulpoSingleton.getInstance().getNumeroFechaP());
 
-        recyclerView=(RecyclerView)view.findViewById(R.id.resultado_rv);
+
+        btnFinalizar = view.findViewById(R.id.btnFinalizar);
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(Rutas.TAG, "se dio click en el boton***************"+PulpoSingleton.getInstance().getNumeroFechaP());
+
+
+
+
+            }
+        });
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.resultado_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(PulpoSingleton.getInstance().getResultadoAdapter());
@@ -55,14 +69,7 @@ public class ResultadosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 partidos = PulpoSingleton.getInstance().getPartidos();
-                Log.d(Rutas.TAG,"El valor del OBJETO PARTIDOS ES "+partidos.toString());
-                btnPrueba=(Button) view.findViewById(R.id.btnGuardarResultados);
-                btnPrueba.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
+                Log.d(Rutas.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
 
 
             }

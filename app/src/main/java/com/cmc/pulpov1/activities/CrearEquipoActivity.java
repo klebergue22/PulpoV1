@@ -39,7 +39,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class CrearEquipoActivity extends AppCompatActivity {
 
@@ -158,7 +157,7 @@ public class CrearEquipoActivity extends AppCompatActivity {
 
         Toast.makeText(this,
                 "Se inserto el equipo:" + equipo.getNombreEquipo().toString(), Toast.LENGTH_LONG).show();
-        Log.d("PULPOLOG", "Se inserto el EQUIPO"+equipo.getNombreEquipo().toString()+"EquipoActivity");
+       // Log.d("PULPOLOG", "Se inserto el EQUIPO"+equipo.getNombreEquipo().toString()+"EquipoActivity");
 
         //TODO:Listeners de exito o error
 
@@ -185,12 +184,12 @@ public class CrearEquipoActivity extends AppCompatActivity {
 
     public void crearEquipo() {
         boolean resultadoValidacion;
-        Log.w("PULPOLOG", "Ingresa al Metodo crearEquipo()"+"EquipoActivity");
+      //  Log.w("PULPOLOG", "Ingresa al Metodo crearEquipo()"+"EquipoActivity");
         // String salida = "Mail:" + etMail.getText().toString() + "Password:" + etPassword.getText().toString();
       /* Toast.makeText(this,
              "Valor:" + salida, Toast.LENGTH_LONG).show();*/
         resultadoValidacion = validarCampos();
-        Log.w("PULPOLOG", "RESULTADO VALIDACION>>" + resultadoValidacion+"EquipoActivity");
+     //   Log.w("PULPOLOG", "RESULTADO VALIDACION>>" + resultadoValidacion+"EquipoActivity");
         if (resultadoValidacion) {
             insertarEquipo();
             insertarImagen();
@@ -258,7 +257,7 @@ public class CrearEquipoActivity extends AppCompatActivity {
 
     public boolean validarCampos() {
         boolean correcto = true;
-        Log.w("PULPOLOG", "ingreso al Metodo validarCampos() "+"EquipoActivity");
+     //   Log.w("PULPOLOG", "ingreso al Metodo validarCampos() "+"EquipoActivity");
         if (etNombreE.getText() != null && etNombreE.getText().toString().isEmpty()) {
             etNombreE.requestFocus();
             etNombreE.setError("El Nombre del equipo es obligatorio");
@@ -310,7 +309,7 @@ public class CrearEquipoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("PULPOLOG", "Ingresa al onActivityResult");
+      //  Log.d("PULPOLOG", "Ingresa al onActivityResult");
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
@@ -318,7 +317,7 @@ public class CrearEquipoActivity extends AppCompatActivity {
                     selectedImage = data.getData();
 
                     imagenE.setImageURI(selectedImage);
-                    Log.d("PULPOLOG", "Toma el valor del URI" + imagenE.toString());
+                //    Log.d("PULPOLOG", "Toma el valor del URI" + imagenE.toString());
                     break;
             }
     }

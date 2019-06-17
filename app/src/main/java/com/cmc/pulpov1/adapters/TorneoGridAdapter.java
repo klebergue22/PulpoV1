@@ -73,6 +73,7 @@ public class TorneoGridAdapter extends BaseAdapter {
 
         tvNombre.setText(torneoActual.getNombreTorneo());
         tvAnio.setText(torneoActual.getAnio()+"");
+
         GlideApp.with(context /* context */)
                 .load(imageReference).error(R.drawable.pulpologo)
                 .into(imgView);
