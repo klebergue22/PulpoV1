@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.cmc.pulpov1.IdentificadorUtils;
 import com.cmc.pulpov1.R;
@@ -37,6 +38,15 @@ public class CrearCuentaActivity extends AppCompatActivity {
     private EditText etApellido;
     private EditText etCorreoE;
     private EditText etClave;
+    private TextInputLayout tilMensajeCrear;
+    private TextView tvMensajeOk;
+    private TextInputLayout tilNombres;
+    private TextInputLayout tilApellidos;
+    private TextInputLayout tilCorreo;
+    private TextInputLayout tilClaveCrear;
+
+
+    private Button btnOk;
     private Button btnCrear;
     private String mailC;
     private Persona persona;
@@ -49,31 +59,42 @@ public class CrearCuentaActivity extends AppCompatActivity {
         persona = new Persona();
         atarComponentes();
         desplazarPantalla();
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
         btnCrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 registrar();
             }
         });
+
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retornar();
+            }
+        });
+    }
+
+    public void retornar(){
+        finish();
     }
 
     public void registrar() {
         boolean resultadoValidacion;
-        String registro = "Nombres: " + etNombre.getText().toString() + "Apellidos" + etApellido.getText().toString()
-                + "Correo Electronico" + etCorreoE.getText().toString()
+        String registro = "Correo Electronico" + etCorreoE.getText().toString()
                 + "Contraseña" + etClave.getText().toString();
-       /* Toast.makeText(this,
-                "Valor:" + registro, Toast.LENGTH_LONG).show();*/
+
+        Log.d(Rutas.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
         resultadoValidacion = validarCampos();
+        Log.d(Rutas.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
         if (resultadoValidacion) {
             crearCuentaFirebase();
-            ingresarRol();
+            //ingresarRol();
 
             // limpiarComponentes();
-            finish();
+            //finish();
 
         }
     }
@@ -83,30 +104,38 @@ public class CrearCuentaActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(CrearCuentaActivity.this, "Registro Creado con éxito", Toast.LENGTH_SHORT).show();
 
+                        if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                            //Toast.makeText(CrearCuentaActivity.this, "Registro Creado con éxito", Toast.LENGTH_SHORT).show();
+                            tvMensajeOk.setText("Tu cuenta ha sido creada. Ya puedes disfrutar de Pulpo");
+                            btnOk.setVisibility(View.VISIBLE);
+                            btnCrear.setVisibility(View.INVISIBLE);
+
 
                             //updateUI(user);
                         } else {
                             Log.w("PULPOLOG", "excepcion" + task.getException().getClass().getCanonicalName() + " " + task.getException()+"CrearCuentaActivity");
 
-                            if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                            if (((task.getException() instanceof FirebaseAuthWeakPasswordException)) &&((etClave.getText() != null && etClave.getText().toString().isEmpty()))) {
                                 Log.e("PULPOLOG", "La contraseña debe tener al menos 6 caracteres"+"CrearCuentaActivity", task.getException());
-                                Toast.makeText(CrearCuentaActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CrearCuentaActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+                                tilClaveCrear.setError("La contraseña debe tener al menos 6 caracteres");
                             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                 Log.w("PULPOLOG", "Ya existe un usuario registrado con ese correo"+"CrearCuentaActivity");
-                                Toast.makeText(CrearCuentaActivity.this, "Ya existe un usuario registrado con ese correo", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CrearCuentaActivity.this, "Ya existe un usuario registrado con ese correo", Toast.LENGTH_SHORT).show();
+                                tilCorreo.setError("Ya existe un usuario registrado con ese correo");
                             } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 Log.w("PULPOLOG", "El formato del correo es incorrecto"+"CrearCuentaActivity");
-                                Toast.makeText(CrearCuentaActivity.this, "El formato del correo es incorrecto", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CrearCuentaActivity.this, "El formato del correo es incorrecto", Toast.LENGTH_SHORT).show();
+                                tilCorreo.setError("El formato del correo es incorrecto");
                             }
 
                             //  Log.w("PULPOLOG","excepcion"+task.getException().getClass().getCanonicalName());
                             else {
                                 Log.e("PULPOLOG", "Error al crear el registro "+"CrearCuentaActivity", task.getException());
-                                Toast.makeText(CrearCuentaActivity.this, "Error al crear el registro ", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(CrearCuentaActivity.this, "Error al crear el registro ", Toast.LENGTH_SHORT).show();
+                                tilMensajeCrear.setError("Error al crear el registro");
                             }
                             //updateUI(null);
                         }
@@ -163,53 +192,56 @@ public class CrearCuentaActivity extends AppCompatActivity {
         myRef1.child(mailC).setValue(persona);
 
 
-        Toast.makeText(this,
-                "Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString(), Toast.LENGTH_LONG).show();
+      //  Toast.makeText(this,                "Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString(), Toast.LENGTH_LONG).show();
       //  Log.d("PULPOLOG", "Se inserto el USUARIO EN EL ROL"+"CrearCuentaActivity");
+        tilMensajeCrear.setError("Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString());
 
     }
 
 
     private void atarComponentes() {
-        etNombre = findViewById(R.id.etNombres);
-        etApellido = findViewById(R.id.etApellidos);
+
         etCorreoE = findViewById(R.id.etCorreo);
         etClave = findViewById(R.id.etClave);
         btnCrear = findViewById(R.id.btnCrear);
+        btnOk=findViewById(R.id.btnOk);
+        btnOk.setVisibility(View.INVISIBLE);
+        tvMensajeOk=findViewById(R.id.tvMensajeCrear);
+        tilMensajeCrear=findViewById(R.id.tilMensajeCrear);
+        tilCorreo=findViewById(R.id.tilCorreoCrear);
+        tilClaveCrear=findViewById(R.id.tilClaveCrear);
         constraintLayout = findViewById(R.id.rootview);
 
     }
 
     private void limpiarComponentes() {
-        etNombre.setText("");
-        etApellido.setText("");
+
         etCorreoE.setText("");
         etClave.setText("");
+        tilClaveCrear.setError("");
+        tilMensajeCrear.setError("");
+        tilCorreo.setError("");
+
     }
 
     private boolean validarCampos() {
         boolean correcto = true;
-        if (etNombre.getText() != null && etNombre.getText().toString().isEmpty()) {
-            etNombre.requestFocus();
-            etNombre.setError("El nombre es obligatorio");
-            correcto = false;
-        }
-        if (etApellido.getText() != null && etApellido.getText().toString().isEmpty()) {
-            etApellido.requestFocus();
-            etApellido.setError("El apellido es obligatorio");
-            correcto = false;
-        }
-        if (etCorreoE.getText() != null && etApellido.getText().toString().isEmpty()) {
+
+        if (etCorreoE.getText() != null && etCorreoE.getText().toString().isEmpty()) {
             etCorreoE.requestFocus();
-            etCorreoE.setError("La dirección de correo electrónico es obligatorio");
+            //etCorreoE.setError("La dirección de correo electrónico es obligatorio");
+            tilCorreo.setError("La dirección de correo electrónico es obligatorio");
             correcto = false;
         }
 
         if (etClave.getText() != null && etClave.getText().toString().isEmpty()) {
             etClave.requestFocus();
-            etClave.setError("La contraseña es obligatoria");
+            //etClave.setError("La contraseña es obligatoria");
+            tilClaveCrear.setError("La contraseña es obligatoria");
             correcto = false;
         }
+
+
 
         return correcto;
 

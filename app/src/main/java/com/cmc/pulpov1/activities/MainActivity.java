@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.cmc.pulpov1.IdentificadorUtils;
 import com.cmc.pulpov1.PulpoSingleton;
@@ -35,6 +36,10 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     private EditText etMail = null;
     private EditText etPassword = null;
+    private TextView tvMensaje;
+    private TextInputLayout tilMail;
+    private TextInputLayout tilClave;
+    private TextInputLayout tilMensaje;
     private ConstraintLayout constraintLayout;
     private Button btnIngresar;
     private Button btnCrear;
@@ -97,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(MainActivity.this, "El usuario o la contraseña no son correctos", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(MainActivity.this, "El usuario o la contraseña no son correctos", Toast.LENGTH_SHORT).show();
+                                tilMensaje.setError("El usuario o la contraseña no son correctos");
                             }
                             if (task.getException() instanceof FirebaseAuthInvalidUserException) {
-                                Toast.makeText(MainActivity.this, "No se encuentra registrado en el sistema, por favor use la opción Regístrate", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(MainActivity.this, "No se encuentra registrado en el sistema, por favor use la opción Regístrate", Toast.LENGTH_SHORT).show();
+                                tilMensaje.setError("No se encuentra registrado en el sistema, por favor use la opción Regístrate");
                             }
                         }
                     }
@@ -163,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
         btnIngresar = findViewById(R.id.btnIngresar);
         btnRecuperar = findViewById(R.id.btnRecuperar);
         btnCrear = findViewById(R.id.btnCrear);
+        tilMail=findViewById(R.id.tilMail);
+        tilClave=findViewById(R.id.tilClave);
+        tilMensaje=findViewById(R.id.tilMensaje);
+        tvMensaje=findViewById(R.id.tvMensaje);
         // btnTorneo=findViewById(R.id.btnTorneo);
         constraintLayout = findViewById(R.id.rootview);
     }
@@ -172,12 +183,12 @@ public class MainActivity extends AppCompatActivity {
        // Log.w("PULPOLOG", "ingreso al Metodo validarCampos MainActivity() ");
         if (etMail.getText() != null && etMail.getText().toString().isEmpty()) {
             etMail.requestFocus();
-            etMail.setError("El correo es obligatorio");
+            tilMail.setError("El correo es obligatorio");
             correcto = false;
         }
         if (etPassword.getText() != null && etPassword.getText().toString().isEmpty()) {
             etPassword.requestFocus();
-            etPassword.setError("La contraseña es obligatoria");
+            tilClave.setError("La contraseña es obligatoria");
             correcto = false;
         }
         return correcto;

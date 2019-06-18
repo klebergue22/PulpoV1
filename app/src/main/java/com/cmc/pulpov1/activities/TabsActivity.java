@@ -42,7 +42,8 @@ public class TabsActivity extends AppCompatActivity {
 
         Log.w("PULPOLOG", "EL VALOR DEL CODIGO TORNEO ES  TABS ACTIVITY " + codigoTorneo);
         Log.w("PULPOLOG", "EL VALOR DEL CODIGO CATEGORIA ES " + codigoCategoria);
-        Log.w(Rutas.TAG,"El NUMERO DE LA FECHA ES *******"+PulpoSingleton.getInstance().getNumeroFechaP());
+        Log.w(Rutas.TAG,"El NUMERO DE LA FECHA ES ******* SI ES NULL HAY QUE CREAR UNA FECHA" +
+                "   ********"+PulpoSingleton.getInstance().getNumeroFechaP());
 
         Toast.makeText(TabsActivity.this, "El VALOR DEL CODIGO DEL TORNEO ES " + codigoTorneo + "Valor CATEGORIA" + codigoCategoria, Toast.LENGTH_SHORT).show();
 

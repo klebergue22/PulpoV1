@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.TransitionManager;
 import android.util.Log;
@@ -12,7 +13,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.cmc.pulpov1.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,9 @@ public class RecuperarClaveActivity extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private EditText etCorreoE;
     private Button btnRecuperarC;
+    private Button btnOkRecuperar;
+    private TextView tvMensajeRecuperar;
+    private TextInputLayout tilCorreoRecuperar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,14 @@ public class RecuperarClaveActivity extends AppCompatActivity {
                 recuperar();
             }
         });
+        btnOkRecuperar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
     public void recuperar() {
         boolean respuestaValidacion;
         String valor = "Correo Electronico" + etCorreoE.getText().toString();
@@ -95,23 +106,33 @@ public class RecuperarClaveActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(RecuperarClaveActivity.this, "Se ha enviado un correo para que pueda restablecer la clave", Toast.LENGTH_SHORT).show();
+                            limpiarComponentes();
+                            //Toast.makeText(RecuperarClaveActivity.this, "Se ha enviado un correo para que pueda restablecer la clave", Toast.LENGTH_SHORT).show();
                             Log.d("PULPOLOG", "Se ha enviado un correo para que pueda restablecer la clave");
+                            tvMensajeRecuperar.setText("Se ha enviado un correo para que puedas restablecer tu contraseña");
+                            btnRecuperarC.setVisibility(View.INVISIBLE);
+                            btnOkRecuperar.setVisibility(View.VISIBLE);
+
+
                         } else {
-                            Toast.makeText(RecuperarClaveActivity.this, "Error al enviar el correo", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(RecuperarClaveActivity.this, "Error al enviar el correo", Toast.LENGTH_SHORT).show();
                             Log.w("PULPOLOG", "excepcion" + task.getException().getClass().getCanonicalName() + " " + task.getException());
+                            //tvMensajeRecuperar.setText("Error al enviar el correo");
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(RecuperarClaveActivity.this, "El formato del correo electrónico no es la correcta", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(RecuperarClaveActivity.this, "El formato del correo electrónico no es la correcta", Toast.LENGTH_SHORT).show();
                                 Log.e("PULPOLOG", "El formato del correo electrónico no es la correcta" + task.getException().getClass().getCanonicalName() + " " + task.getException());
+                                tilCorreoRecuperar.setError("El formato del correo electrónico no es correcto");
                             } else if (task.getException() instanceof FirebaseAuthInvalidUserException) {
-                                Toast.makeText(RecuperarClaveActivity.this, "El usuario no se encuentra registrado en el sistema", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(RecuperarClaveActivity.this, "El usuario no se encuentra registrado en el sistema", Toast.LENGTH_SHORT).show();
                                 Log.e("PULPOLOG", "El usuario no se encuentra registrado en el sistema" + task.getException().getClass().getCanonicalName() + " " + task.getException());
+                                tilCorreoRecuperar.setError("El correo no se encuentra registrado en el sistema");
 
 
                             } else {
                                 Log.w("PULPOLOG", "excepcion" + task.getException().getClass().getCanonicalName());
-                                Toast.makeText(RecuperarClaveActivity.this, "Excepción", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(RecuperarClaveActivity.this, "Excepción", Toast.LENGTH_SHORT).show();
+
                             }
 
 
@@ -126,15 +147,25 @@ public class RecuperarClaveActivity extends AppCompatActivity {
     private void atarComponentes() {
         constraintLayout = findViewById(R.id.rootview);
         etCorreoE = findViewById(R.id.etMail);
+        tvMensajeRecuperar=findViewById(R.id.tvMensajeRecuperar);
         btnRecuperarC = findViewById(R.id.btnRecuperar);
+        btnOkRecuperar=findViewById(R.id.btnOkRecuperar);
+        btnOkRecuperar.setVisibility(View.INVISIBLE);
+        tilCorreoRecuperar=findViewById(R.id.tilCorreoRecuperar);
     }
+
+    private void limpiarComponentes(){
+       // etCorreoE.setText("");
+        tilCorreoRecuperar.setError("");
+    }
+
 
     private boolean validarCampos() {
         boolean correcto = true;
 
         if (etCorreoE.getText() != null && etCorreoE.getText().toString().isEmpty()) {
             etCorreoE.requestFocus();
-            etCorreoE.setError("El correo es obligatorio");
+            tilCorreoRecuperar.setError("El correo es obligatorio");
             correcto = false;
         }
         return correcto;

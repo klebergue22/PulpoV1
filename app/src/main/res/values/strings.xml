@@ -21,6 +21,7 @@
     <string name="app_btnGuardar">Guardar</string>
     <string name="app_btnAprobar">Aprobar</string>
     <string name="app_btnFinalizar">Finalizar</string>
+    <string name="app_btnOk">Ok</string>
 
 
     <string name="app_id">Id</string>

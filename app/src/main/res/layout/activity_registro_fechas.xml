@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/tilCorreoRecuperar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

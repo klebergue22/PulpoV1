@@ -14,6 +14,8 @@ import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.entities.Partido;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,9 @@ public class ResultadosFragment extends Fragment {
     RecyclerView recyclerView;
     private List<Partido> partidos;
     private Button btnFinalizar;
+    private String numFecha;
+    private DatabaseReference refResultados;
+    private FirebaseDatabase database;
 
 
     @Override
@@ -53,6 +58,17 @@ public class ResultadosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(Rutas.TAG, "se dio click en el boton***************"+PulpoSingleton.getInstance().getNumeroFechaP());
+                numFecha=PulpoSingleton.getInstance().getNumeroFechaP();
+                refResultados = database.getReference(Rutas.CALENDARIO)
+                        .child(Rutas.ROOT_TORNEOS)
+                        .child(PulpoSingleton.getInstance().getCodigoTorneo())
+                        .child(PulpoSingleton.getInstance().getNumeroFechaP())
+                        .child(PulpoSingleton.getInstance().getCodigoPartido())
+                ;
+
+                //queda pendiente por cambio de presentacion de incio se procede a cambiar la informacion anterior
+                //refResultados.setValue(partido);
+
 
 
 
