@@ -83,16 +83,10 @@ public class CategoriaActivity extends AppCompatActivity {
        // PulpoSingleton.getInstance().setCodigoTorneo(torneoSeleccionado.getId());
         PulpoSingleton.getInstance().setCodigoCategoria(categoriaSeleccionada);
        // Log.d("PULPOLOG","vALOR DE LA CATEGORIA**********"+ PulpoSingleton.getInstance().getCodigoCategoria()+"CategoriaActivity"  );
-
         //Intent intent = new Intent(this, TabsActivity.class);
         Intent intent = new Intent(this, TabsActivity.class);
-
         context=getApplicationContext();
         PulpoSingleton.getInstance().setContext(context);
-
-
-
-
         startActivity(intent);
     }
     /*

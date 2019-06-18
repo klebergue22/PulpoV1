@@ -6,32 +6,26 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
-import com.cmc.pulpov1.adapters.TorneoAdapter;
 import com.cmc.pulpov1.adapters.TorneoGridAdapter;
 import com.cmc.pulpov1.entities.Rol;
 import com.cmc.pulpov1.entities.Torneo;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -217,6 +211,39 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        boolean valor = true;
+        if (id == R.id.btnNuevoJugador) {
+             navPerfilJugador();
+            return valor;
+        } else if (id == R.id.btnAprobar) {
+            Toast.makeText(this, "Se presiono el boton de Aprobar ", Toast.LENGTH_LONG).show();
+            return valor;
+
+        }
+        return valor;
+
+        //return super.onOptionsItemSelected(item);
+    }
+
+
+
 
 
 
