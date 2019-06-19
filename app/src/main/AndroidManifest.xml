@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/pulpo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.ResultadoActivity"></activity>
+        <activity android:name=".activities.CargarCedulaActivity"
+            android:label="@string/app_ju_cargarCedula"
+            ></activity>
+        <activity android:name=".activities.ResultadoActivity" />
         <activity android:name=".activities.ListaPartidosActivity" />
         <activity android:name=".activities.CrearFechasActivity" />
         <activity android:name=".activities.PertenecerEquipoActivity" />
@@ -27,8 +30,7 @@
         <activity android:name=".activities.RegistroFechasActivity" />
         <activity
             android:name=".activities.RegistroJugadorActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:label="@string/app_ju_jugador" />
         <activity
             android:name=".activities.CrearEquipoActivity"
             android:label="@string/app_btnCrearE"

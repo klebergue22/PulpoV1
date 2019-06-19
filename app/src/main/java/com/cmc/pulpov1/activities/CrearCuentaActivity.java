@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cmc.pulpov1.IdentificadorUtils;
+import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.entities.Persona;
@@ -183,8 +184,9 @@ public class CrearCuentaActivity extends AppCompatActivity {
       //  Log.d("PULPOLOG", "NOMBRE PERSONA" + etNombre.getText().toString()+"CrearCuentaActivity");
         persona.setApellido(etApellido.getText().toString());
         // persona.setCorreo(etCorreoE.getText().toString())
-
+        PulpoSingleton.getInstance().setMail(etCorreoE.getText().toString());
         mailC = IdentificadorUtils.crearIdentificacionMail(etCorreoE.getText().toString());
+        PulpoSingleton.getInstance().setMail(mailC);
       //  Log.d("PULPOLOG", "EL VALOR DEL CORREO ES " + mailC+"CrearCuentaActivity");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef1 = database.

@@ -36,6 +36,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
     private BaseAdapter adpT;
     private List<Torneo> torneos;
     private GridView gvTorneos;
+    private boolean tipo;
 
 
     private Torneo torneoSeleccionado;
@@ -49,6 +50,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_torneos);
         database = FirebaseDatabase.getInstance();
         atarComponentes();
+        tipo=true;
         if(puedeCrearTorneo()){
          btnCrearTorneo.setVisibility(View.VISIBLE);
         }else{
@@ -68,12 +70,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
                 navCrearTorneo();
             }
         });
-        btnPerfilJugador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navPerfilJugador();
-            }
-        });
+
         //Instancio el adapter propio ya que estaba apuntando al adapter de android
         //adpT = new TorneoAdapter(this, torneos);
         //Seteo el adapter para pintar la lista
@@ -89,6 +86,13 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
 
     private void navPerfilJugador() {
         Intent intent = new Intent(this, RegistroJugadorActivity.class);
+        startActivity(intent);
+    }
+
+    private void navCrearNuevoJugador(){
+
+        Intent intent = new Intent(this, RegistroJugadorActivity.class);
+        intent.putExtra("tipo",tipo);
         startActivity(intent);
     }
 
@@ -190,7 +194,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         //lvTorneos = findViewById(R.id.lvTorneo);
         //imgView=findViewById(R.id.imgView);
         btnCrearTorneo = findViewById(R.id.btnCrearTorneo);
-        btnPerfilJugador = findViewById(R.id.btnPerfilJugador);
+
 
 
     }
@@ -232,8 +236,15 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         if (id == R.id.btnNuevoJugador) {
              navPerfilJugador();
             return valor;
-        } else if (id == R.id.btnAprobar) {
-            Toast.makeText(this, "Se presiono el boton de Aprobar ", Toast.LENGTH_LONG).show();
+        } else if (id == R.id.mnuAdicional) {
+            navPerfilJugador();
+
+
+            return valor;
+
+        }else if (id == R.id.mnuAdicional2) {
+            navPerfilJugador();
+
             return valor;
 
         }

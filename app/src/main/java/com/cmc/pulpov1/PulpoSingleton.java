@@ -40,6 +40,7 @@ public class PulpoSingleton {
     private String nombreEquipo;
     private String categoria;
     private String numeroFechaP = null;
+    private boolean estadoCedula;
     private List<Equipo> equipos;
     private List<Partido> partidos;
     private List<Rol> roles;
@@ -71,6 +72,13 @@ public class PulpoSingleton {
         return instancia;
     }
 
+    public boolean isEstadoCedula() {
+        return estadoCedula;
+    }
+
+    public void setEstadoCedula(boolean estadoCedula) {
+        this.estadoCedula = estadoCedula;
+    }
 
     public Context getContext() {
         return context;

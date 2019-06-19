@@ -151,7 +151,7 @@ public class RecuperarClaveActivity extends AppCompatActivity {
         btnRecuperarC = findViewById(R.id.btnRecuperar);
         btnOkRecuperar=findViewById(R.id.btnOkRecuperar);
         btnOkRecuperar.setVisibility(View.INVISIBLE);
-        tilCorreoRecuperar=findViewById(R.id.tilCorreoRecuperar);
+        tilCorreoRecuperar=findViewById(R.id.tilCedulaRecuperar);
     }
 
     private void limpiarComponentes(){

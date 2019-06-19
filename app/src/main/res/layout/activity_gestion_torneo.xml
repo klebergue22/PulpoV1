@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tilCorreoRecuperar"
+            android:id="@+id/tilCedulaRecuperar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -45,7 +45,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout1"
+            android:id="@+id/tilPrimerNombreJug"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -60,7 +60,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout2"
+            android:id="@+id/tilPrimerApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -75,7 +75,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout3"
+            android:id="@+id/tilSegundoNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -92,7 +92,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayout4"
+            android:id="@+id/tilSegundoApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

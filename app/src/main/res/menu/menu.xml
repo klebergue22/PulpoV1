@@ -3,22 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.journaldev.tablayoutviewpager.com.cmc.pulpov1.activities.TabsActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/mnuAdicional"
         android:orderInCategory="100"
         android:title="Adicional 1"
-        app:showAsAction="never" />
+        app:showAsAction="collapseActionView" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/mnuAdicional2"
         android:orderInCategory="100"
         android:title="Adicional 2"
-        app:showAsAction="never" />
+        app:showAsAction="withText" />
 
     <item
         android:id="@+id/btnNuevoJugador"
-        android:orderInCategory="100"
-        android:title="Adicional 2"
         android:icon="@drawable/ic_person_white_24px"
-        app:showAsAction="ifRoom" />
+        android:orderInCategory="100"
+        android:title="@string/app_btnCrearJ"
+        app:showAsAction="always" />
 
 
 </menu>
