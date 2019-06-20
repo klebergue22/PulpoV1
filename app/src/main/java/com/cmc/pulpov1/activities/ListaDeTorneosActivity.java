@@ -1,5 +1,7 @@
 package com.cmc.pulpov1.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,11 +39,8 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
     private List<Torneo> torneos;
     private GridView gvTorneos;
     private boolean tipo;
-
-
     private Torneo torneoSeleccionado;
     private Button btnCrearTorneo;
-    private Button btnPerfilJugador;
 
 
     @Override
@@ -50,10 +49,10 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lista_de_torneos);
         database = FirebaseDatabase.getInstance();
         atarComponentes();
-        tipo=true;
-        if(puedeCrearTorneo()){
-         btnCrearTorneo.setVisibility(View.VISIBLE);
-        }else{
+        tipo = true;
+        if (puedeCrearTorneo()) {
+            btnCrearTorneo.setVisibility(View.VISIBLE);
+        } else {
             btnCrearTorneo.setVisibility(View.INVISIBLE);
         }
 
@@ -74,25 +73,39 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         //Instancio el adapter propio ya que estaba apuntando al adapter de android
         //adpT = new TorneoAdapter(this, torneos);
         //Seteo el adapter para pintar la lista
-        adpT=new TorneoGridAdapter(this,torneos);
+        adpT = new TorneoGridAdapter(this, torneos);
         gvTorneos.setAdapter(adpT);
 
     }
 
+
+
+    private void navPerfilJugador() {
+        Intent intent = new Intent(this, RegistroJugadorActivity.class);
+        intent.putExtra("paramTipoPerfil", Rutas.PRINCIPAL);
+        startActivity(intent);
+    }
+
+    private void navPerfilAdicional1Jugador() {
+        Intent intent = new Intent(this, RegistroJugadorActivity.class);
+        intent.putExtra("paramTipoPerfil", Rutas.ADICIONAL1);
+        startActivity(intent);
+    }
+
+    private void navPerfilAdicional2Jugador() {
+        Intent intent = new Intent(this, RegistroJugadorActivity.class);
+        intent.putExtra("paramTipoPerfil", Rutas.ADICIONAL2);
+        startActivity(intent);
+    }
     private void navCrearTorneo() {
         Intent intent = new Intent(this, GestionTorneoActivity.class);
         startActivity(intent);
     }
 
-    private void navPerfilJugador() {
-        Intent intent = new Intent(this, RegistroJugadorActivity.class);
-        startActivity(intent);
-    }
-
-    private void navCrearNuevoJugador(){
+    private void navCrearNuevoJugador() {
 
         Intent intent = new Intent(this, RegistroJugadorActivity.class);
-        intent.putExtra("tipo",tipo);
+        intent.putExtra("tipo", tipo);
         startActivity(intent);
     }
 
@@ -124,7 +137,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
                 }
                 if (!repetido) {
                     //Se recupera el objeto completo
-                    Torneo torneo=dataSnapshot.getValue(Torneo.class);
+                    Torneo torneo = dataSnapshot.getValue(Torneo.class);
                     torneos.add(torneo);
 
                     adpT.notifyDataSetChanged();
@@ -190,26 +203,26 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
      */
 
     private void atarComponentes() {
-        gvTorneos=findViewById(R.id.baseGridView);
+        gvTorneos = findViewById(R.id.baseGridView);
         //lvTorneos = findViewById(R.id.lvTorneo);
         //imgView=findViewById(R.id.imgView);
         btnCrearTorneo = findViewById(R.id.btnCrearTorneo);
 
 
-
     }
-    public boolean puedeCrearTorneo(){
-        if(PulpoSingleton.getInstance().getUsuarioLogueado()==null){
+
+    public boolean puedeCrearTorneo() {
+        if (PulpoSingleton.getInstance().getUsuarioLogueado() == null) {
             return false;
         }
-        if(PulpoSingleton.getInstance().getUsuarioLogueado().getRoles()==null){
+        if (PulpoSingleton.getInstance().getUsuarioLogueado().getRoles() == null) {
             return false;
         }
 
-        Map<String, Rol> roles=PulpoSingleton.getInstance().getUsuarioLogueado().getRoles();
-        for(String clave:roles.keySet()){
-            Rol rol=roles.get(clave);
-            if("1".equals(rol.getIdRol())){
+        Map<String, Rol> roles = PulpoSingleton.getInstance().getUsuarioLogueado().getRoles();
+        for (String clave : roles.keySet()) {
+            Rol rol = roles.get(clave);
+            if ("1".equals(rol.getIdRol())) {
                 return true;
             }
         }
@@ -224,6 +237,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -234,19 +248,15 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         boolean valor = true;
         if (id == R.id.btnNuevoJugador) {
-             navPerfilJugador();
+            navPerfilJugador();
             return valor;
         } else if (id == R.id.mnuAdicional) {
-            navPerfilJugador();
-
-
+            navPerfilAdicional1Jugador();
             return valor;
 
-        }else if (id == R.id.mnuAdicional2) {
-            navPerfilJugador();
-
+        } else if (id == R.id.mnuAdicional2) {
+            navPerfilAdicional2Jugador();
             return valor;
-
         }
         return valor;
 
@@ -254,9 +264,38 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        //Display alert message when back button has been pressed
+        backButtonHandler();
+        return;
+    }
 
-
-
-
-
+    public void backButtonHandler() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+                this);
+        // Setting Dialog Title
+        alertDialog.setTitle("Leave application?");
+        // Setting Dialog Message
+        alertDialog.setMessage("Esta seguro de salir de la aplicación ?");
+        // Setting Icon to Dialog
+        // alertDialog.setIcon(R.drawable.dialog_icon);
+        // Setting Positive "Yes" Button
+        alertDialog.setPositiveButton("SI",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+        // Setting Negative "NO" Button
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Write your code here to invoke NO event
+                        dialog.cancel();
+                    }
+                });
+        // Showing Alert Message
+        alertDialog.show();
+    }
 }

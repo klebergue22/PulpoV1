@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         atarComponentes();
         desplazarPantalla();
         mAuth = FirebaseAuth.getInstance();
-
         btnIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 navegarCrearCuenta();
             }
         });
-
     }
 
 
@@ -131,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     public void navegarTorneosLogueado() {
         Intent intent = new Intent(this, ListaDeTorneosActivity.class);
         startActivity(intent);
+        finish();
     }
 
 
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+/****************************NAVEGACION**********************************/
     public void recuperarJugador() {
         database = FirebaseDatabase.getInstance();
         refUsuario = database.getReference(Rutas.JUGADORES).child(mailc);
@@ -231,4 +230,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    /****************************FIREBASE**********************************/
+
+
+
+    /****************************COMUNES**********************************/
+
 }

@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cmc.pulpov1.IdentificadorUtils;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
+import com.cmc.pulpov1.activities.GlideApp;
 import com.cmc.pulpov1.entities.Jugador;
 import com.cmc.pulpov1.entities.Rol;
 import com.google.firebase.database.ChildEventListener;
@@ -35,8 +37,10 @@ public class JugadorAdapter extends ArrayAdapter<Jugador> {
     private TextView tvEstado;
     private Button btnAprobar;
     private StorageReference storageReference;
+    private StorageReference imageReference;
     private FirebaseDatabase database;
     private String mailC;
+    private ImageView imgView;
 
     public JugadorAdapter(Context context, List<Jugador> jugadores) {
         super(context, 0, jugadores);
@@ -70,11 +74,17 @@ public class JugadorAdapter extends ArrayAdapter<Jugador> {
             tvNombreJugador = viewItem.findViewById(R.id.tvNombreJugador);
             tvApellidoJugador = viewItem.findViewById(R.id.tvApellidoJugador);
             tvEstado = viewItem.findViewById(R.id.tvEstado);
+            imgView=viewItem.findViewById(R.id.ivFotoPerfil);
 
             btnAprobar = viewItem.findViewById(R.id.btnAprobar);
             tvNombreJugador.setText(jugadorActual.getPrimerNombre());
             tvApellidoJugador.setText(jugadorActual.getPrimerApellido());
             tvEstado.setText(jugadorActual.getEstado());
+
+            imageReference=storageReference.child(Rutas.CEDULAS).child(jugadorActual.getCedula());
+            GlideApp.with(context /* context */)
+                    .load(imageReference).error(R.drawable.pulpologo)
+                    .into(imgView);
 
 
             Map<String, Rol> roles = PulpoSingleton.getInstance().getUsuarioLogueado().getRoles();
@@ -111,7 +121,9 @@ public class JugadorAdapter extends ArrayAdapter<Jugador> {
 
                 }
             });
+
         }
+
         return viewItem;
     }
 

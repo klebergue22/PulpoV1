@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/pulpo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CargarCedulaActivity"
-            android:label="@string/app_ju_cargarCedula"
+        <activity android:name=".activities.CargarImagenActivity"
+            android:label="@string/app_torneo_img"
             ></activity>
         <activity android:name=".activities.ResultadoActivity" />
         <activity android:name=".activities.ListaPartidosActivity" />

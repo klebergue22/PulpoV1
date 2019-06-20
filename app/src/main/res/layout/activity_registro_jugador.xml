@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.RegistroJugadorActivity">
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.RegistroJugadorActivity">
+    android:layout_height="match_parent">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -13,7 +20,7 @@
         android:layout_height="wrap_content"
 
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
+        app:layout_constraintGuide_percent="0.38" />
 
 
     <android.support.design.widget.TextInputLayout
@@ -136,16 +143,13 @@
 
     <ImageView
         android:id="@+id/ivFotoPerfil"
-        android:layout_width="82dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCargarImagenJugador"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_person_outline_24px"
         tools:ignore="VectorDrawableCompat" />
 
@@ -153,14 +157,14 @@
         android:id="@+id/btnCargarImagenJugador"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/app_btnCargaFotoPerfil"
         android:textAllCaps="false"
         android:textColor="@color/letrasBoton"
-        app:layout_constraintBottom_toTopOf="@+id/tilCedulaRecuperar"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -180,3 +184,5 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

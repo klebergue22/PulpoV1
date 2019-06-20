@@ -47,7 +47,9 @@ public class PulpoSingleton {
     private List<Fecha> fechas;
     private Jugador jugador;
     private Partido partido;
-   private static Context context;
+    private List<Jugador>jugadores;
+    private static Context context;
+    private String tipo;
 
 
     private List<Partido> resultadoPartido;
@@ -70,6 +72,22 @@ public class PulpoSingleton {
 
         }
         return instancia;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     public boolean isEstadoCedula() {
@@ -222,7 +240,7 @@ public class PulpoSingleton {
     }
 
     public void setCodigoTorneo(String codigoTorneo) {
-      //  Log.v("PULPOLOG", "codigo torneo" + codigoTorneo);
+        //  Log.v("PULPOLOG", "codigo torneo" + codigoTorneo);
         if (!codigoTorneo.equals(this.codigoTorneo)) {
             this.codigoTorneo = codigoTorneo;
             codigoCategoria = null;
@@ -230,7 +248,7 @@ public class PulpoSingleton {
     }
 
     public void setCodigoCategoria(final String codigoCategoria) {
-       // Log.v("PULPOLOG", "codigo categoria" + codigoCategoria);
+        // Log.v("PULPOLOG", "codigo categoria" + codigoCategoria);
         if (!codigoCategoria.equals(this.codigoCategoria)) {
             this.codigoCategoria = codigoCategoria;
             equipos = new ArrayList<Equipo>();
@@ -239,7 +257,7 @@ public class PulpoSingleton {
 
             partidoAdapter = new PartidoRecyclerViewAdapter(partidos);
             equiposAdapter = new EquipoRecyclerViewAdapter(equipos);
-          //  partidosAdapter = new PartidosAdapter(context, partidos);
+            //  partidosAdapter = new PartidosAdapter(context, partidos);
             resultadoAdapter = new ResultadoRecyclerViewAdapter(partidos, new ResultadoRecyclerViewAdapter.ResultadoAdapterListener() {
                 @Override
                 public void guardarResultado(View v, int position, int puntosEquipo1, int intPuntosEquipo2) {
@@ -435,7 +453,7 @@ public class PulpoSingleton {
                     partidos.remove(posicionRepetido);
                     partidoAdapter.notifyDataSetChanged();
                     resultadoAdapter.notifyDataSetChanged();
-               //     partidosAdapter.notifyDataSetChanged();
+                    //     partidosAdapter.notifyDataSetChanged();
                 }
 
             }

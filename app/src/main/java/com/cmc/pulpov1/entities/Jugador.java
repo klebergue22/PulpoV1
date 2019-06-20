@@ -11,12 +11,10 @@ public class Jugador {
     private Date fechaNacimiento;
     private String mailJugador;
     private String estado;
+    private String imagenPerfil;
+    private String imagenCedula;
 
-    public Jugador(){
-
-    }
-
-    public Jugador(String cedula, String primerNombre, String primerApellido, String segundoNombre, String segundoApellido, Date fechaNacimiento, String mailJugador, String estado) {
+    public Jugador(String cedula, String primerNombre, String primerApellido, String segundoNombre, String segundoApellido, Date fechaNacimiento, String mailJugador, String estado, String imagenPerfil, String imagenCedula) {
         this.cedula = cedula;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
@@ -25,6 +23,11 @@ public class Jugador {
         this.fechaNacimiento = fechaNacimiento;
         this.mailJugador = mailJugador;
         this.estado = estado;
+        this.imagenPerfil = imagenPerfil;
+        this.imagenCedula = imagenCedula;
+    }
+    public Jugador(){
+
     }
 
     public String getCedula() {
@@ -91,6 +94,22 @@ public class Jugador {
         this.estado = estado;
     }
 
+    public String getImagenPerfil() {
+        return imagenPerfil;
+    }
+
+    public void setImagenPerfil(String imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
+    }
+
+    public String getImagenCedula() {
+        return imagenCedula;
+    }
+
+    public void setImagenCedula(String imagenCedula) {
+        this.imagenCedula = imagenCedula;
+    }
+
     @Override
     public String toString() {
         return "Jugador{" +
@@ -102,6 +121,8 @@ public class Jugador {
                 ", fechaNacimiento=" + fechaNacimiento +
                 ", mailJugador='" + mailJugador + '\'' +
                 ", estado='" + estado + '\'' +
+                ", imagenPerfil='" + imagenPerfil + '\'' +
+                ", imagenCedula='" + imagenCedula + '\'' +
                 '}';
     }
 }

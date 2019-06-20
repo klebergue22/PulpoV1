@@ -1,6 +1,5 @@
 package com.cmc.pulpov1.activities;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -30,18 +29,21 @@ import android.widget.Toast;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
+import com.cmc.pulpov1.adapters.JugadorAdapter;
 import com.cmc.pulpov1.entities.Jugador;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class RegistroJugadorActivity extends AppCompatActivity {
     private FirebaseDatabase database;
@@ -57,10 +59,10 @@ public class RegistroJugadorActivity extends AppCompatActivity {
     private TextInputLayout tilPrimerApellido;
     private TextInputLayout tilSegundoApellido;
     private TextInputLayout tilFechaNacimeinto;
-
     private EditText etMailJ;
     private ConstraintLayout constraintLayout;
     private Jugador jugador;
+    private List<Jugador> jugadores;
     private String mailc;
     private Date fechaN;
     private int anio;
@@ -76,32 +78,52 @@ public class RegistroJugadorActivity extends AppCompatActivity {
     private ImageView imagenE;
     private static final byte GALLERY_REQUEST_CODE = 1;
     private static final byte GALLERY_REQUEST_ID = 2;
+    private JugadorAdapter jadp;
+    private String tipoJugador;
+    private String tipoPerfil;
+    private StorageReference imageReference;
+    private static final int ACTIVITY_CARGAR_IMAGEN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_jugador);
+        Intent intent = getIntent();
+        tipoJugador = intent.getStringExtra("paramTipoJugador");
+        tipoPerfil=intent.getStringExtra("paramTipoPerfil");
         atarComponentes();
+
+
         database = FirebaseDatabase.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference(Rutas.PERFIL);
         //etMailJ.setText(PulpoSingleton.getInstance().getMailN());
         //mailc=PulpoSingleton.getInstance().getMail();
         //etMailJ.setEnabled(false);
+        jugadores = new ArrayList<Jugador>();
+        jugadores = PulpoSingleton.getInstance().getJugadores();
 
         jugador = PulpoSingleton.getInstance().getJugador();
+        if(jugador==null){
+            jugador = new Jugador();
+            PulpoSingleton.getInstance().setJugador(jugador);
+        }
+        Log.d(Rutas.TAG, "el valor del jugador en el onCreate es " + jugador.toString());
+        recuperarImg();
 
 
-        if (jugador != null) {
+        if (jugador != null && jugador.getCedula()!=null) {
+
             mailc = PulpoSingleton.getInstance().getMail();
             etCedula.setText(jugador.getCedula());
             etCedula.setEnabled(false);
-            // btnCargarCedula.setVisibility(View.VISIBLE);
             etPrimerNombre.setText(jugador.getPrimerNombre());
             etPrimerApellido.setText(jugador.getPrimerApellido());
             etSegundoNombre.setText(jugador.getSegundoNombre());
             etSegundoApellido.setText(jugador.getSegundoApellido());
+
             if (jugador.getFechaNacimiento() != null) {
                 etFechaNacimiento.setText(sdfCompleto.format(jugador.getFechaNacimiento()));
+
             }
         } else {
             limpiarComponentes();
@@ -144,7 +166,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         btnCargarImgPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pickFromGallery();
+                navIrCargarFotoPerfil();
             }
         });
 
@@ -177,10 +199,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         mailc = PulpoSingleton.getInstance().getMail();
         Log.d(Rutas.TAG, "El valor dell mail es el siguiente***MAILC " + mailc);
         DatabaseReference refJugador = database.getReference(Rutas.JUGADORES).child(mailc);
-        if (jugador == null) {
-            jugador = new Jugador();
 
-        }
         jugador.setMailJugador(PulpoSingleton.getInstance().getMail());
         jugador.setCedula(etCedula.getText().toString());
         jugador.setPrimerNombre(etPrimerNombre.getText().toString());
@@ -218,7 +237,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
                     ConstraintSet constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
                     //Regresar la línea de guía a la posición original
-                    constraintSet.setGuidelinePercent(R.id.guideline, 0.2f); // 7% // range: 0 <-> 1
+                    constraintSet.setGuidelinePercent(R.id.guideline, 0.4f); // 7% // range: 0 <-> 1
                     TransitionManager.beginDelayedTransition(constraintLayout);
                     constraintSet.applyTo(constraintLayout);
                 }
@@ -227,9 +246,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
     }
 
     public void atarComponentes() {
-
         etCedula = findViewById(R.id.etCedula);
-
         etPrimerNombre = findViewById(R.id.etPrimerNombre);
         etPrimerApellido = findViewById(R.id.etPrimerApellido);
         etSegundoNombre = findViewById(R.id.etSegundoNombre);
@@ -246,10 +263,6 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         tilPrimerApellido = findViewById(R.id.tilPrimerApellido);
         tilSegundoApellido = findViewById(R.id.tilSegundoApellido);
         tilFechaNacimeinto = findViewById(R.id.tilFechaNacimeinto);
-
-        // etMailJ.setEnabled(false);
-
-
     }
 
     public void crearJugador() {
@@ -257,7 +270,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         resultadoValidacion = validarCampos();
         if (resultadoValidacion) {
             insertarJugador();
-            insertarImagen();
+         //   insertarImagen();
         }
     }
 
@@ -296,11 +309,11 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         return correcto;
     }
 
-    private void insertarImagen() {
+  /*  private void insertarImagen() {
 
         StorageReference imagenReference = storageReference.child(Rutas.PERFIL + "/" + jugador.getCedula());
         Log.d(Rutas.TAG, "El valor de la cedula es ****************** " + imagenReference.getPath());
-        if (selectedImage.equals(null)) {
+        if (selectedImage==null) {
             tilCedulaRecuperar.setError("La imagen no se encuentra cargada ");
         } else {
             UploadTask uploadTask = imagenReference.putFile(selectedImage);
@@ -319,7 +332,7 @@ public class RegistroJugadorActivity extends AppCompatActivity {
 
         }
 
-    }
+    }*/
 
     //Metodo para capturar
 
@@ -336,19 +349,57 @@ public class RegistroJugadorActivity extends AppCompatActivity {
     }
 
     private void navIrCargarCedula() {
+      //  tipo = Rutas.CEDULAS;
         Log.d(Rutas.TAG, "El valor de la cedula es=== " + etCedula.getText().toString());
         if (etCedula.getText() != null && etCedula.getText().toString().isEmpty()) {
             tilCedulaRecuperar.setError("Debe guardar previamente una cedula");
         } else {
-            Intent intent = new Intent(this, CargarCedulaActivity.class);
+            Intent intent = new Intent(this, CargarImagenActivity.class);
+            intent.putExtra("paramTipoImagen", Rutas.CEDULAS);
+            intent.putExtra("paramNombreImagen", jugador.getImagenCedula());
             startActivity(intent);
         }
 
 
     }
 
+    private void navIrCargarFotoPerfil() {
+        Log.d(Rutas.TAG, "El valor de la cedula es=== " + etCedula.getText().toString());
+        if (etCedula.getText() != null && etCedula.getText().toString().isEmpty()) {
+            tilCedulaRecuperar.setError("Debe guardar previamente una cedula");
+        } else {
+            Intent intent = new Intent(this, CargarImagenActivity.class);
+            intent.putExtra("paramTipoImagen", Rutas.PERFIL);
+            intent.putExtra("paramNombreImagen", jugador.getImagenPerfil());
 
-    @Override
+
+          //  startActivity(intent);
+            startActivityForResult(intent, ACTIVITY_CARGAR_IMAGEN);
+        }
+    }
+
+
+
+
+
+    private void recuperarImg() {
+        if (jugador!=null){
+            if(jugador.getImagenPerfil()!=null&&jugador.getCedula()!=null) {
+                imageReference = storageReference.child(jugador.getCedula()).child(jugador.getImagenPerfil());
+                Log.d(Rutas.TAG, "el jugador  es  ++++" + jugador.toString());
+
+                GlideApp.with(getApplicationContext())
+                    .load(imageReference)
+                    .circleCrop().error(R.drawable.ic_person_outline_24px)
+                    .into(imagenE);
+
+            }
+        }
+
+    }
+
+
+  /*  @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //  Log.d("PULPOLOG", "Ingresa al onActivityResult");
@@ -370,6 +421,25 @@ public class RegistroJugadorActivity extends AppCompatActivity {
                     //    Log.d("PULPOLOG", "Toma el valor del URI" + imagenE.toString());
                     break;
             }
+    }*/
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == ACTIVITY_CARGAR_IMAGEN) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+
+                // get String data from Intent
+                boolean cargoImagen = data.getBooleanExtra("cargoImagen",false);
+
+                if(cargoImagen){
+                  //  recargarImg();
+                    recuperarImg();
+                }
+            }
+        }
     }
 
     @Override
@@ -404,6 +474,67 @@ public class RegistroJugadorActivity extends AppCompatActivity {
         return valor;
 
         //return super.onOptionsItemSelected(item);
+    }
+
+
+    private void escucharJugador() {
+        //1.-Referencia al arbol
+        DatabaseReference refJugador = database.getReference(Rutas.CEDULAS);
+        //2.-Crear el listener
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("PULPOLOG", "Se agrega Jugador RegistroJugadorActivity" + dataSnapshot.getKey());
+                boolean repetido = false;
+                for (Jugador jugador : jugadores) {
+                    //COMPARAR CONTRA EL ID Para ver si es repetido
+                    if (jugador.getCedula().equals(dataSnapshot.getKey())) {
+                        repetido = true;
+                    }
+                }
+                if (!repetido) {
+                    //Se recupera el objeto completo
+                    Jugador jugador = dataSnapshot.getValue(Jugador.class);
+                    jugadores.add(jugador);
+
+                    jadp.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("PULPOLOG", "Se borra torneo ListaTorneosActivity " + dataSnapshot.getKey());
+                int posicionRepetido = -1;
+                for (int i = 0; i < jugadores.size(); i++) {
+                    //COMPARAR POR EL ID
+                    if (jugadores.get(i).getCedula().equals(dataSnapshot.getKey())) {
+                        posicionRepetido = i;
+                    }
+                }
+                if (posicionRepetido != -1) {
+                    jugadores.remove(posicionRepetido);
+                    jadp.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        //Se descomenta el retorno del paso 3.-del listener
+        refJugador.addChildEventListener(childEventListener);
     }
 
 
