@@ -21,6 +21,8 @@ import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.adapters.TorneoGridAdapter;
+import com.cmc.pulpov1.entities.AdminPerfil;
+import com.cmc.pulpov1.entities.Jugador;
 import com.cmc.pulpov1.entities.Rol;
 import com.cmc.pulpov1.entities.Torneo;
 import com.google.firebase.database.ChildEventListener;
@@ -28,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,9 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
     private boolean tipo;
     private Torneo torneoSeleccionado;
     private Button btnCrearTorneo;
+    private Jugador jugador;
+    private List<Jugador> jugadores;
+    private AdminPerfil adminPerfil;
 
 
     @Override
@@ -48,37 +54,32 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_de_torneos);
         database = FirebaseDatabase.getInstance();
+        jugador = new Jugador();
+        jugadores = new ArrayList<Jugador>();
         atarComponentes();
+        recuperarJugador();
         tipo = true;
         if (puedeCrearTorneo()) {
             btnCrearTorneo.setVisibility(View.VISIBLE);
         } else {
             btnCrearTorneo.setVisibility(View.INVISIBLE);
         }
-
-
         escucharTorneos();
         tomarPosicion();
-
         //Instancio la lista de torneos
         torneos = new ArrayList<Torneo>();
-
         btnCrearTorneo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navCrearTorneo();
             }
         });
-
         //Instancio el adapter propio ya que estaba apuntando al adapter de android
         //adpT = new TorneoAdapter(this, torneos);
         //Seteo el adapter para pintar la lista
         adpT = new TorneoGridAdapter(this, torneos);
         gvTorneos.setAdapter(adpT);
-
     }
-
-
 
     private void navPerfilJugador() {
         Intent intent = new Intent(this, RegistroJugadorActivity.class);
@@ -97,6 +98,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         intent.putExtra("paramTipoPerfil", Rutas.ADICIONAL2);
         startActivity(intent);
     }
+
     private void navCrearTorneo() {
         Intent intent = new Intent(this, GestionTorneoActivity.class);
         startActivity(intent);
@@ -275,7 +277,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                 this);
         // Setting Dialog Title
-        alertDialog.setTitle("Leave application?");
+        alertDialog.setTitle("Desea Salir?");
         // Setting Dialog Message
         alertDialog.setMessage("Esta seguro de salir de la aplicación ?");
         // Setting Icon to Dialog
@@ -297,5 +299,35 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
                 });
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    private void recuperarJugador() {
+        // Get a reference to our posts
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference refJugadores = database.getReference(Rutas.JUGADORES)
+                .child(PulpoSingleton.getInstance().getMail());
+        Log.d(Rutas.TAG, "El valor del path al recuperar es*********************** " + refJugadores.getPath());
+        refJugadores.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                adminPerfil = dataSnapshot.getValue(AdminPerfil.class);
+                PulpoSingleton.getInstance().setAdminPerfil(adminPerfil);
+                if(adminPerfil==null){
+                    adminPerfil=new AdminPerfil();
+                    jugador=new Jugador();
+                    PulpoSingleton.getInstance().setAdminPerfil(adminPerfil);
+                    PulpoSingleton.getInstance().setJugador(jugador);
+                }
+
+                Log.d(Rutas.TAG, "Se recupera jugador" + adminPerfil);
+                //Log.d(Rutas.TAG, "La lista de jugadores es " + jugadores.size());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

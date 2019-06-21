@@ -17,6 +17,10 @@ public interface Rutas {
     String PRINCIPAL="principal";
     String ADICIONAL1="adicional1";
     String ADICIONAL2="adicional2";
+    String JUGMAIL="jugadoresmail";
+    String IMGPERFIL="imagenPerfil";
+    String IMGCEDULA="imagenCedula";
+
     String TAG="PULPOLOG";
 
 

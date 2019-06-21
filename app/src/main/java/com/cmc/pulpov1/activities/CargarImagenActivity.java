@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
+import com.cmc.pulpov1.entities.AdminPerfil;
 import com.cmc.pulpov1.entities.Jugador;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,13 +27,15 @@ import com.google.firebase.storage.UploadTask;
 public class CargarImagenActivity extends AppCompatActivity {
     private static final byte GALLERY_REQUEST_CODE = 1;
     private Uri selectedImage;
-    private  StorageReference storageReference;
+    private StorageReference storageReference;
     private ImageView imagenE;
     private Button btnCargarImagen;
     private Button btnGuardar;
     private Jugador jugador;
     private String tipoImagen;//cedulas,fotoPerfil
-    private String nombreImagen;
+    private String nombreImagen;//valor de milisegundos
+    private AdminPerfil adminPerfil;
+    private String tipoPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,11 @@ public class CargarImagenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cargar_imagen);
         Intent intent = getIntent();
         tipoImagen = intent.getStringExtra("paramTipoImagen");
-        nombreImagen = intent.getStringExtra("paramNombreImagen");
-        PulpoSingleton.getInstance().setTipo(tipoImagen);
-        Log.d(Rutas.TAG, "el valor recuperado del tipoImagen es " + tipoImagen);
+        tipoPerfil = PulpoSingleton.getInstance().getTipo();
+        recuperarJugador();
 
-
+        Log.d(Rutas.TAG, "KDGGel valor recuperado del tipoImagen es " + tipoImagen);
+        Log.d(Rutas.TAG, "KDGGel valor recuperado del nombreImagen es " + nombreImagen);
         atarcomponentes();
         storageReference = FirebaseStorage.getInstance().getReference(tipoImagen);
         btnCargarImagen.setOnClickListener(new View.OnClickListener() {
@@ -54,16 +57,12 @@ public class CargarImagenActivity extends AppCompatActivity {
 
             }
         });
-
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 insertarImagen();
             }
         });
-
-        jugador = PulpoSingleton.getInstance().getJugador();
-
         recuperarImg();
     }
 
@@ -71,7 +70,7 @@ public class CargarImagenActivity extends AppCompatActivity {
         imagenE = findViewById(R.id.ivCedula);
         btnCargarImagen = findViewById(R.id.btnCargarCedula);
         btnGuardar = findViewById(R.id.btnGuardarImg);
-
+        btnGuardar.setVisibility(View.INVISIBLE);
     }
 
     private void cargarExplorador() {
@@ -85,30 +84,23 @@ public class CargarImagenActivity extends AppCompatActivity {
         // Launching the Intent
         startActivityForResult(intent, GALLERY_REQUEST_CODE);
         btnCargarImagen.setVisibility(View.INVISIBLE);
+        btnGuardar.setVisibility(View.VISIBLE);
     }
 
     private void insertarImagen() {
-       /* StorageReference imagenReference = storageReference
-                .child(tipoImagen);*/
-     /*  String imagenPerfil=System.currentTimeMillis()+"";
-       if(jugador.getImagenPerfil()!=null){
-           imagenPerfil=jugador.getImagenPerfil();
-       }else{*/
-     if(Rutas.PERFIL.equals(tipoImagen)) {
-         jugador.setImagenPerfil(System.currentTimeMillis() + "");
-         nombreImagen = jugador.getImagenPerfil();
-     }else if(Rutas.CEDULAS.equals(tipoImagen)){
+        Log.d(Rutas.TAG,"INSERTANDO IMAGEN DE TIPO "+tipoImagen);
+        if (Rutas.PERFIL.equals(tipoImagen)) {
+            jugador.setImagenPerfil(System.currentTimeMillis() + "");
+            nombreImagen = jugador.getImagenPerfil();
+        } else if (Rutas.CEDULAS.equals(tipoImagen)) {
             jugador.setImagenCedula(System.currentTimeMillis() + "");
             nombreImagen = jugador.getImagenCedula();
-     }
-
-        StorageReference imagenReference=storageReference.child(jugador.getCedula()).child(nombreImagen);
-
+        }
+        Log.d(Rutas.TAG, "eL VALOR DEL JUGADOR ES " + jugador);
+        StorageReference imagenReference = storageReference.child(jugador.getCedula()).child(nombreImagen);
         actualizarImagenPerfil();
-
-        UploadTask uploadTask =imagenReference.putFile(selectedImage);
-        Log.w(Rutas.TAG, "SMO El valor de la referencia es " + imagenReference.getPath());
-
+        UploadTask uploadTask = imagenReference.putFile(selectedImage);
+        Log.w(Rutas.TAG, "SMO El valor de la referencia x es " + imagenReference.getPath());
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -130,82 +122,79 @@ public class CargarImagenActivity extends AppCompatActivity {
 
     }
 
-    public void actualizarImagenPerfil(){
-        if(Rutas.PERFIL.equals(tipoImagen)) {
-            FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES).child(PulpoSingleton.getInstance().getMail())
-                    .child("imagenPerfil").setValue(jugador.getImagenPerfil());
-        }else{
-            if(Rutas.CEDULAS.equals(tipoImagen)) {
-                FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES).child(PulpoSingleton.getInstance().getMail())
-                        .child("imagenCedula").setValue(jugador.getImagenCedula());
+    public void actualizarImagenPerfil() {
+        if (Rutas.PERFIL.equals(tipoImagen)) {
+            FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES)
+                            .child(PulpoSingleton.getInstance()
+                            .getMail()).child(tipoPerfil)
+                            .child(Rutas.IMGPERFIL)
+                            .setValue(jugador.getImagenPerfil());
+
+            FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES)
+                    .child(PulpoSingleton.getInstance()
+                            .getMail()).child(tipoPerfil)
+                    .child("cedula")
+                    .setValue(jugador.getCedula());
+        } else {
+            if (Rutas.CEDULAS.equals(tipoImagen)) {
+                FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES)
+                        .child(PulpoSingleton.getInstance().getMail())
+                        .child(tipoPerfil)
+                        .child(Rutas.IMGCEDULA)
+                        .setValue(jugador.getImagenCedula());
+
+                FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES)
+                        .child(PulpoSingleton.getInstance()
+                                .getMail()).child(tipoPerfil)
+                        .child("cedula")
+                        .setValue(jugador.getCedula());
             }
         }
     }
 
-    public void navIrRegistroJugador(){
-        Intent intent=new Intent(this,RegistroJugadorActivity.class);
-        intent.putExtra("tipoImagen", tipoImagen);
-        startActivity(intent);
+    public void recuperarJugador() {
+        adminPerfil = PulpoSingleton.getInstance().getAdminPerfil();
+        switch (tipoPerfil) {
+            case Rutas.PRINCIPAL:
+                jugador = adminPerfil.getPrincipal();
+                break;
+            case Rutas.ADICIONAL1:
+                jugador = adminPerfil.getAdicional1();
+                break;
+            case Rutas.ADICIONAL2:
+                jugador = adminPerfil.getAdicional2();
+                break;
+        }
+        Log.d(Rutas.TAG,"jugador recuperado "+jugador);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //  Log.d("PULPOLOG", "Ingresa al onActivityResult");
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
-                    //data.getData returns the content URI for the selected Image
                     selectedImage = data.getData();
-
                     imagenE.setImageURI(selectedImage);
-                    //recargarImg();
-                  /*  GlideApp.with(getApplicationContext())
-                            .load(selectedImage)
-
-                            .circleCrop().
-                            error(R.drawable.ic_person_outline_24px)
-                            .into(imagenE);*/
-                    //    Log.d("PULPOLOG", "Toma el valor del URI" + imagenE.toString());
                     break;
-
-
             }
     }
 
     private void recuperarImg() {
 
-        if(nombreImagen!=null&&jugador.getCedula()!=null) {
-            StorageReference imagenReference = storageReference.child(jugador.getCedula()).child(nombreImagen);
-            Log.d(Rutas.TAG, "el tipoImagen es  ++++" + tipoImagen);
-            Log.d(Rutas.TAG, "path imagen  ++++" + imagenReference.getPath());
+        if (Rutas.PERFIL.equals(tipoImagen)) {
+            nombreImagen = jugador.getImagenPerfil();
+        } else if (Rutas.CEDULAS.equals(tipoImagen)) {
+            nombreImagen = jugador.getImagenCedula();
+        }
 
+        if (jugador.getCedula() != null && nombreImagen!=null ) {
+            StorageReference imagenReference = storageReference.child(jugador.getCedula()).child(nombreImagen);
             GlideApp.with(getApplicationContext())
                     .load(imagenReference)
-
-
                     .error(R.drawable.ic_person_outline_24px)
                     .into(imagenE);
-
-
         }
     }
-
-   /* private void recargarImg() {
-
-        StorageReference imagenReference = storageReference.child(jugador.getCedula()+"xx");
-        Log.d(Rutas.TAG, "el tipoImagen es  ++++" + tipoImagen);
-        Log.d(Rutas.TAG, "path imagen  ++++" + imagenReference.getPath());
-
-        GlideApp.with(getApplicationContext())
-
-                .load(imagenReference).
-                skipMemoryCache(true)
-                 .signature(new ObjectKey(jugador.getCedula()+String.valueOf(System.currentTimeMillis())))
-                .circleCrop().error(R.drawable.ic_person_outline_24px)
-                .into(imagenE);
-
-    }*/
-
 }

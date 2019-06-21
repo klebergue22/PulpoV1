@@ -26,7 +26,8 @@ public class Jugador {
         this.imagenPerfil = imagenPerfil;
         this.imagenCedula = imagenCedula;
     }
-    public Jugador(){
+
+    public Jugador() {
 
     }
 
@@ -125,5 +126,7 @@ public class Jugador {
                 ", imagenCedula='" + imagenCedula + '\'' +
                 '}';
     }
+
+
 }
 

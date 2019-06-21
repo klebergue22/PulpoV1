@@ -10,6 +10,7 @@ import com.cmc.pulpov1.adapters.EquipoRecyclerViewAdapter;
 import com.cmc.pulpov1.adapters.PartidoRecyclerViewAdapter;
 import com.cmc.pulpov1.adapters.PartidosAdapter;
 import com.cmc.pulpov1.adapters.ResultadoRecyclerViewAdapter;
+import com.cmc.pulpov1.entities.AdminPerfil;
 import com.cmc.pulpov1.entities.Equipo;
 import com.cmc.pulpov1.entities.Fecha;
 import com.cmc.pulpov1.entities.Jugador;
@@ -50,6 +51,7 @@ public class PulpoSingleton {
     private List<Jugador>jugadores;
     private static Context context;
     private String tipo;
+    private AdminPerfil adminPerfil;
 
 
     private List<Partido> resultadoPartido;
@@ -72,6 +74,14 @@ public class PulpoSingleton {
 
         }
         return instancia;
+    }
+
+    public AdminPerfil getAdminPerfil() {
+        return adminPerfil;
+    }
+
+    public void setAdminPerfil(AdminPerfil adminPerfil) {
+        this.adminPerfil = adminPerfil;
     }
 
     public String getTipo() {
