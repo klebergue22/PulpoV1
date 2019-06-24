@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -129,7 +130,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "Se agrega Torneo ListaTorneosActivity" + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "Se agrega Torneo ListaTorneosActivity" + dataSnapshot.getKey());
                 boolean repetido = false;
                 for (Torneo torneo : torneos) {
                     //COMPARAR CONTRA EL ID Para ver si es repetido
@@ -153,7 +154,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("PULPOLOG", "Se borra torneo ListaTorneosActivity " + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "Se borra torneo ListaTorneosActivity " + dataSnapshot.getKey());
                 int posicionRepetido = -1;
                 for (int i = 0; i < torneos.size(); i++) {
                     //COMPARAR POR EL ID
@@ -199,7 +200,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
      public void torneosLogueado() {
         Intent intent = new Intent(this, ListaDeTorneosActivity.class);
         intent.putExtra("prueba", etMail.getText().toString());
-        Log.d("PULPOLOG", "El valor del mail es " + etMail.getText().toString());
+        Log.d("LogPulpo.TAG", "El valor del mail es " + etMail.getText().toString());
         startActivity(intent);
     }
      */
@@ -306,7 +307,7 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         DatabaseReference refJugadores = database.getReference(Rutas.JUGADORES)
                 .child(PulpoSingleton.getInstance().getMail());
-        Log.d(Rutas.TAG, "El valor del path al recuperar es*********************** " + refJugadores.getPath());
+        Log.d(LogPulpo.TAG, "El valor del path al recuperar es*********************** " + refJugadores.getPath());
         refJugadores.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -319,8 +320,8 @@ public class ListaDeTorneosActivity extends AppCompatActivity {
                     PulpoSingleton.getInstance().setJugador(jugador);
                 }
 
-                Log.d(Rutas.TAG, "Se recupera jugador" + adminPerfil);
-                //Log.d(Rutas.TAG, "La lista de jugadores es " + jugadores.size());
+                Log.d(LogPulpo.TAG, "Se recupera jugador" + adminPerfil);
+                //Log.d(LogPulpo.TAG, "La lista de jugadores es " + jugadores.size());
             }
 
             @Override

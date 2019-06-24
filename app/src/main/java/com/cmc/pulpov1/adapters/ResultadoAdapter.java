@@ -60,7 +60,7 @@ public class ResultadoAdapter extends ArrayAdapter<Partido> {
         partidoActual.setPuntosEquipoUno(etPuntosE1.getText().toString());
         etPuntosE2 = viewItem.findViewById(R.id.txtPtosE02);
         partidoActual.setPuntosEquiDos(etPuntosE2.getText().toString());
-        Log.d("PULPOLOG", "VALOR DEL LOG " + partidoActual.toString());
+        Log.d("LogPulpo.TAG", "VALOR DEL LOG " + partidoActual.toString());
         partidos.set(position, partidoActual);
         PulpoSingleton.getInstance().setPartidos(partidos);
 

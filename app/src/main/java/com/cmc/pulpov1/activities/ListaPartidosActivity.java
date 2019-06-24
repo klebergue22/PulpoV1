@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -58,7 +59,7 @@ public class ListaPartidosActivity extends AppCompatActivity {
         Intent intent = getIntent();
         numFecha = intent.getStringExtra("numFecha");
 
-        Log.d(Rutas.TAG, "El valor de la numero de fecha es la siguiente antes de enviar " + numFecha);
+        Log.d(LogPulpo.TAG, "El valor de la numero de fecha es la siguiente antes de enviar " + numFecha);
         Toast.makeText(this, "El valor de la fecha seleccionada es " + numFecha, Toast.LENGTH_LONG).show();
 
         atarComponentes();
@@ -123,9 +124,9 @@ public class ListaPartidosActivity extends AppCompatActivity {
     public void setPartidosFirabaseListener() {
 
 
-       // Log.d(Rutas.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
-       // Log.d(Rutas.TAG, "*************El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
-        //Log.d(Rutas.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
+       // Log.d(LogPulpo.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
+       // Log.d(LogPulpo.TAG, "*************El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
+        //Log.d(LogPulpo.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
         //1.-Referencia al arbol
         partidosDBReference = database.
                 getReference(Rutas.CALENDARIO).
@@ -135,13 +136,13 @@ public class ListaPartidosActivity extends AppCompatActivity {
         ;
 
 
-        Log.d("PULPOLOG", "PATH en Partidos>>" + partidosDBReference.getPath());
+        Log.d("LogPulpo.TAG", "PATH en Partidos>>" + partidosDBReference.getPath());
         //2.-Crear el listener
         ChildEventListener childEventListener = new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "onChildAdded de partido ....... datasnapshot" + dataSnapshot);
+                Log.d("LogPulpo.TAG", "onChildAdded de partido ....... datasnapshot" + dataSnapshot);
                 partido = dataSnapshot.getValue(Partido.class);
                 partidos.add(partido);
                 adpPartido.notifyDataSetChanged();
@@ -157,7 +158,7 @@ public class ListaPartidosActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("PULPOLOG", "Se borra Partido " + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "Se borra Partido " + dataSnapshot.getKey());
                 int posicionRepetido = -1;
                 for (int i = 0; i < partidos.size(); i++) {
                     //se compara contra el id

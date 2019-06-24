@@ -6,10 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.activities.ResultadoActivity;
-import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.adapters.ResultadoRecyclerViewAdapter;
 import com.cmc.pulpov1.entities.Partido;
 
@@ -40,9 +40,9 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(Rutas.TAG,"El valor es el siguiente ");
+                Log.d(LogPulpo.TAG,"El valor es el siguiente ");
                 int pos = getAdapterPosition();
-                Log.d("PULPOLOG", "la posicion en el ResultadoHOLDER es  " + pos + "Resultado Holder");
+                Log.d("LogPulpo.TAG", "la posicion en el ResultadoHOLDER es  " + pos + "Resultado Holder");
                 Partido partidoSeleccionado= PulpoSingleton.getInstance().getPartidos().get(pos);
                 PulpoSingleton.getInstance().setPartido(partidoSeleccionado);
                 Intent intent = new Intent(v.getContext(), ResultadoActivity.class);
@@ -59,7 +59,7 @@ public class ResultadoHolder extends RecyclerView.ViewHolder implements View.OnC
 
 
     public void bind(Partido p) {
-        Log.d("PULPOLOG", "vALOR DEL PARTIDO" + p);
+        Log.d("LogPulpo.TAG", "vALOR DEL PARTIDO" + p);
 
 
         tvEquipo1.setText(p.getEquipoUno());

@@ -71,7 +71,7 @@ public class CategoriaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 categoriaSeleccionada = categorias.get(position);
-              //  Log.d("PULPOLOG","el valor de la categoria seleccionada es "+categoriaSeleccionada+"CategoriaActivity");
+              //  Log.d("LogPulpo.TAG","el valor de la categoria seleccionada es "+categoriaSeleccionada+"CategoriaActivity");
              Toast.makeText(CategoriaActivity.this, "La categoria seleccionada es " + categoriaSeleccionada, Toast.LENGTH_SHORT).show();
                 navCategoriaSeleccionada();
             }
@@ -82,7 +82,7 @@ public class CategoriaActivity extends AppCompatActivity {
     private void navCategoriaSeleccionada() {
        // PulpoSingleton.getInstance().setCodigoTorneo(torneoSeleccionado.getId());
         PulpoSingleton.getInstance().setCodigoCategoria(categoriaSeleccionada);
-       // Log.d("PULPOLOG","vALOR DE LA CATEGORIA**********"+ PulpoSingleton.getInstance().getCodigoCategoria()+"CategoriaActivity"  );
+       // Log.d("LogPulpo.TAG","vALOR DE LA CATEGORIA**********"+ PulpoSingleton.getInstance().getCodigoCategoria()+"CategoriaActivity"  );
         //Intent intent = new Intent(this, TabsActivity.class);
         Intent intent = new Intent(this, TabsActivity.class);
         context=getApplicationContext();

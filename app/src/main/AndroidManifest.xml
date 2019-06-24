@@ -11,9 +11,14 @@
         android:roundIcon="@mipmap/pulpo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.CargarImagenActivity"
-            android:label="@string/app_torneo_img"
-            ></activity>
+        <activity
+            android:name=".activities.ListaTorneos"
+            android:label="@string/title_activity_lista_torneos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".activities.CargarImagenesActivity" />
+        <activity
+            android:name=".activities.CargarImagenActivity"
+            android:label="@string/app_torneo_img" />
         <activity android:name=".activities.ResultadoActivity" />
         <activity android:name=".activities.ListaPartidosActivity" />
         <activity android:name=".activities.CrearFechasActivity" />

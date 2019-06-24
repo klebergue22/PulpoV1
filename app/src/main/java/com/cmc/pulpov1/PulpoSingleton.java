@@ -244,13 +244,13 @@ public class PulpoSingleton {
 
         if (!mail.equals(this.mail)) {
             this.mail = mail;
-            Log.v("PULPOLOG", "Mail__codigo" + mail);
+            Log.v("LogPulpo.TAG", "Mail__codigo" + mail);
 
         }
     }
 
     public void setCodigoTorneo(String codigoTorneo) {
-        //  Log.v("PULPOLOG", "codigo torneo" + codigoTorneo);
+        //  Log.v("LogPulpo.TAG", "codigo torneo" + codigoTorneo);
         if (!codigoTorneo.equals(this.codigoTorneo)) {
             this.codigoTorneo = codigoTorneo;
             codigoCategoria = null;
@@ -258,7 +258,7 @@ public class PulpoSingleton {
     }
 
     public void setCodigoCategoria(final String codigoCategoria) {
-        // Log.v("PULPOLOG", "codigo categoria" + codigoCategoria);
+        // Log.v("LogPulpo.TAG", "codigo categoria" + codigoCategoria);
         if (!codigoCategoria.equals(this.codigoCategoria)) {
             this.codigoCategoria = codigoCategoria;
             equipos = new ArrayList<Equipo>();
@@ -271,13 +271,13 @@ public class PulpoSingleton {
             resultadoAdapter = new ResultadoRecyclerViewAdapter(partidos, new ResultadoRecyclerViewAdapter.ResultadoAdapterListener() {
                 @Override
                 public void guardarResultado(View v, int position, int puntosEquipo1, int intPuntosEquipo2) {
-                    Log.d("PULPOLOG", "SMO llama al boton!!");
+                    Log.d("LogPulpo.TAG", "SMO llama al boton!!");
                     //1. Con la posicion recuperar el partido de la lista de partidos
                     partido = partidos.get(position);
-                    Log.d(Rutas.TAG, "El partido recuperado es " + partido.toString());
+                    Log.d(LogPulpo.TAG, "El partido recuperado es " + partido.toString());
                     //2. ACTUALIZAR (NO INSERTAR!!!! ACTUALIZAR) los puntos del equipo1 y del equipo2 del equipo seleccionado
                     // --- Armar la ruta hasta llegar al valor que se quiere modificar osea hasta el atributo que guarda los puntos de cada equipo
-                    Log.d(Rutas.TAG, "El valor del codigoTorneo es " + codigoTorneo);
+                    Log.d(LogPulpo.TAG, "El valor del codigoTorneo es " + codigoTorneo);
                     resultadosDBReference = database.
                             getReference(Rutas.CALENDARIO).
                             child(Rutas.ROOT_TORNEOS).
@@ -288,7 +288,7 @@ public class PulpoSingleton {
                             child(partido.getId().toString());
 
 
-                    Log.d(Rutas.TAG, "El valor de la ruta es " + resultadosDBReference.toString());
+                    Log.d(LogPulpo.TAG, "El valor de la ruta es " + resultadosDBReference.toString());
 
 
                     // -- Para armar la ruta, se tiene todo lo necesario en el objeto partido de la lista, como se tiene la posición elegida, se puede recuperar el partido
@@ -297,7 +297,7 @@ public class PulpoSingleton {
                     partido.setPuntosEquipoUno(Integer.toString(puntosEquipo1));
                     partido.setPuntosEquiDos(Integer.toString(intPuntosEquipo2));
 
-                    Log.d(Rutas.TAG, "El partido seteado nuevo es ****" + partido.toString());
+                    Log.d(LogPulpo.TAG, "El partido seteado nuevo es ****" + partido.toString());
                     resultadosDBReference.setValue(partido);
 
 
@@ -315,7 +315,7 @@ public class PulpoSingleton {
 
 
     public void setRoles(Rol rol) {
-        Log.d("PULPOLOG", "rol guardado" + rol);
+        Log.d("LogPulpo.TAG", "rol guardado" + rol);
 
         roles.add(rol);
 
@@ -364,7 +364,7 @@ public class PulpoSingleton {
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "childAdded" + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "childAdded" + dataSnapshot.getKey());
                 boolean repetido = false;
                 for (Equipo equipo : equipos) {
                     //SE COMPARA CONTRA EL ID  Para ver si es repetido
@@ -386,7 +386,7 @@ public class PulpoSingleton {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("PULPOLOG", "Se borra equipo " + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "Se borra equipo " + dataSnapshot.getKey());
                 int posicionRepetido = -1;
                 for (int i = 0; i < equipos.size(); i++) {
                     //se compara contra el id
@@ -416,9 +416,9 @@ public class PulpoSingleton {
     public void setPartidoFirabaseListener() {
 
 
-        Log.d(Rutas.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
-        Log.d(Rutas.TAG, "*************El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
-        Log.d(Rutas.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
+        Log.d(LogPulpo.TAG, "El valor del codigo del torneo es SetPArtidoFirebase:::: " + codigoTorneo);
+        Log.d(LogPulpo.TAG, "*************El valor del codigo del numero de fecha es SetPArtidoFirebase:::: " + numeroFechaP);
+        Log.d(LogPulpo.TAG, "El valor del codigo del partido es SetPArtidoFirebase:::: " + codigoPartido);
         //1.-Referencia al arbol
         partidosDBReference = database.
                 getReference(Rutas.CALENDARIO).
@@ -428,13 +428,13 @@ public class PulpoSingleton {
         ;
 
 
-        Log.d("PULPOLOG", "PATH en Partidos>>" + partidosDBReference.getPath());
+        Log.d("LogPulpo.TAG", "PATH en Partidos>>" + partidosDBReference.getPath());
         //2.-Crear el listener
         ChildEventListener childEventListener = new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("PULPOLOG", "onChildAdded de partido ....... datasnapshot" + dataSnapshot);
+                Log.d("LogPulpo.TAG", "onChildAdded de partido ....... datasnapshot" + dataSnapshot);
                 partido = dataSnapshot.getValue(Partido.class);
                 partidos.add(partido);
 //                partidosAdapter.notifyDataSetChanged();
@@ -451,7 +451,7 @@ public class PulpoSingleton {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("PULPOLOG", "Se borra Partido " + dataSnapshot.getKey());
+                Log.d("LogPulpo.TAG", "Se borra Partido " + dataSnapshot.getKey());
                 int posicionRepetido = -1;
                 for (int i = 0; i < partidos.size(); i++) {
                     //se compara contra el id

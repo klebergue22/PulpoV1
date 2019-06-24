@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -91,7 +92,7 @@ public class CrearFechasActivity extends AppCompatActivity {
                                 etDia1.setText(sdfCompleto.format(fechaSeleccionada));
                                 //fechaMod = sdfCompleto.format(fechaProgramacion);
 
-                                //   Log.d("PULPOLOG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
+                                //   Log.d("LogPulpo.TAG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
                             }
                         }, anio, mes, dia);
                 mDatePicker1.setTitle("Seleccione una fecha");
@@ -122,7 +123,7 @@ public class CrearFechasActivity extends AppCompatActivity {
                                 etDia2.setText(sdfCompleto.format(fechaSeleccionada));
                                 //fechaMod = sdfCompleto.format(fechaProgramacion);
 
-                                //   Log.d("PULPOLOG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
+                                //   Log.d("LogPulpo.TAG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
                             }
                         }, anio, mes, dia);
                 mDatePicker2.setTitle("Seleccione una fecha");
@@ -153,7 +154,7 @@ public class CrearFechasActivity extends AppCompatActivity {
                                 etDia3.setText(sdfCompleto.format(fechaSeleccionada));
                                 //fechaMod = sdfCompleto.format(fechaProgramacion);
 
-                                //   Log.d("PULPOLOG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
+                                //   Log.d("LogPulpo.TAG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
                             }
                         }, anio, mes, dia);
                 mDatePicker3.setTitle("Seleccione una fecha");
@@ -292,7 +293,7 @@ public class CrearFechasActivity extends AppCompatActivity {
     public void navIrListaPartidos() {
         Intent intent = new Intent(this, ListaPartidosActivity.class);
         intent.putExtra("numFecha",numeroFecha);
-        Log.d(Rutas.TAG,"El valor enviado en crearFechas es nav irLista   "+numeroFecha);
+        Log.d(LogPulpo.TAG,"El valor enviado en crearFechas es nav irLista   "+numeroFecha);
         PulpoSingleton.getInstance().setNumeroFechaP(numeroFecha);
         startActivity(intent);
     }

@@ -111,9 +111,9 @@ public class JugadorAdapter extends ArrayAdapter<Jugador> {
                     PulpoSingleton.getInstance().setJugador(jugadorActual);
                     mailC=IdentificadorUtils.crearIdentificacionMail(jugadorActual.getMailJugador());
                     PulpoSingleton.getInstance().setMail(mailC);
-                    Log.d("PULPOLOG", "EL JUGADOR ES **** "+jugadorActual.getMailJugador());
-                    Log.d("PULPOLOG", "EL Mail es  **** "+mailC);
-                    Log.d("PULPOLOG", "EL VALOR DEL PATH ES " + Rutas.ROOT_TORNEOS + PulpoSingleton.getInstance().getCodigoTorneo()
+                    Log.d("LogPulpo.TAG", "EL JUGADOR ES **** "+jugadorActual.getMailJugador());
+                    Log.d("LogPulpo.TAG", "EL Mail es  **** "+mailC);
+                    Log.d("LogPulpo.TAG", "EL VALOR DEL PATH ES " + Rutas.ROOT_TORNEOS + PulpoSingleton.getInstance().getCodigoTorneo()
                             + Rutas.CATEGORIAS + PulpoSingleton.getInstance().getCodigoCategoria() + Rutas.EQUIPOS + PulpoSingleton.getInstance().getCodigoEquipo() +
                             Rutas.MIEMBROS + PulpoSingleton.getInstance().getMail());
                     aprobarJugador();

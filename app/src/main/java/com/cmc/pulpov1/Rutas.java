@@ -13,7 +13,7 @@ public interface Rutas {
     String FECHAS="fechas";
     String FECHA="20190331";
     String CEDULAS="cedulas";
-    String PERFIL="fotoperfil";
+    String FOTOPERFIL="fotoperfil";
     String PRINCIPAL="principal";
     String ADICIONAL1="adicional1";
     String ADICIONAL2="adicional2";
@@ -21,7 +21,7 @@ public interface Rutas {
     String IMGPERFIL="imagenPerfil";
     String IMGCEDULA="imagenCedula";
 
-    String TAG="PULPOLOG";
+
 
 
 

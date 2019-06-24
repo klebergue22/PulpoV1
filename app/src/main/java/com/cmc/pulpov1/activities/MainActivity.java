@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean validarCampos() {
         boolean correcto = true;
-       // Log.w("PULPOLOG", "ingreso al Metodo validarCampos MainActivity() ");
+       // Log.w("LogPulpo.TAG", "ingreso al Metodo validarCampos MainActivity() ");
         if (etMail.getText() != null && etMail.getText().toString().isEmpty()) {
             etMail.requestFocus();
             tilMail.setError("El correo es obligatorio");

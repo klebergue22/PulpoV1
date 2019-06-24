@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.R;
-import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.entities.Partido;
 
 import java.text.ParseException;
@@ -68,7 +68,7 @@ public class PartidoAdapter extends ArrayAdapter<Partido> {
         tvMinuto.setText(partidoActual.getMinuto());
         tvFecha = viewItem.findViewById(R.id.tvFechaF);
         fechaI=ParseFecha(partidoActual.getFecha());
-        Log.d(Rutas.TAG,"El valor de la fecha I es "+fechaI);
+        Log.d(LogPulpo.TAG,"El valor de la fecha I es "+fechaI);
 
 
 
@@ -86,7 +86,7 @@ public class PartidoAdapter extends ArrayAdapter<Partido> {
         Date fechaDate = null;
         try {
             fechaDate = formato.parse(fecha);
-            Log.d(Rutas.TAG, " fecha es  PArse fecha " + fechaDate);
+            Log.d(LogPulpo.TAG, " fecha es  PArse fecha " + fechaDate);
         } catch (ParseException ex) {
             System.out.println(ex);
         }

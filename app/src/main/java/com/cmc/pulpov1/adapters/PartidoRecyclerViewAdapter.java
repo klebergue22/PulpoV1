@@ -28,7 +28,7 @@ public class PartidoRecyclerViewAdapter extends RecyclerView.Adapter<PartidoHold
     @Override
     public void onBindViewHolder(PartidoHolder partidoHolderHolder, int position) {
         partidoHolderHolder.bind(partidos.get(position));
-        Log.d("PULPOLOG", "onBindViewHolder " + partidos.size());
+        Log.d("LogPulpo.TAG", "onBindViewHolder " + partidos.size());
     }
 
     @Override

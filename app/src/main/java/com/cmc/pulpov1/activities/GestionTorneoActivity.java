@@ -94,9 +94,9 @@ public class GestionTorneoActivity extends AppCompatActivity {
         btnCrearTorneo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
+             //   Log.w("LogPulpo.TAG", "INGRESA AL BOTON CREAR TORNEO");
                 ingresar();
-               // Log.w("PULPOLOG", "INGRESA AL BOTON CREAR TORNEO");
+               // Log.w("LogPulpo.TAG", "INGRESA AL BOTON CREAR TORNEO");
 
 
             }
@@ -117,9 +117,9 @@ public class GestionTorneoActivity extends AppCompatActivity {
                             @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
-                                Log.d("PULPOLOG", "selectedday" + selectedday);
+                                Log.d("LogPulpo.TAG", "selectedday" + selectedday);
                                 etInicia.setText(new StringBuilder().append(selectedyear).append("/").append(selectedmonth + 1).append("/").append(selectedday));
-                                Log.d("PULPOLOG", "etinicia" + etInicia.getText().toString());
+                                Log.d("LogPulpo.TAG", "etinicia" + etInicia.getText().toString());
                                 int month_k = selectedmonth + 1;
 
                                 //armar la fecha con los valores de anio mes y dia que selecciona
@@ -129,11 +129,11 @@ public class GestionTorneoActivity extends AppCompatActivity {
                                 fecha = DateFormat.getInstance().format(c.getTime());
                                 etFechIni = c.getTime();
                                 //fecha=(String)"  "+selectedyear+selectedmonth+selectedday;
-                                Log.d("PULPOLOG", "Fecha armada" + fecha);
+                                Log.d("LogPulpo.TAG", "Fecha armada" + fecha);
                                 //fechai.parse(fecha);
 
 
-                                Log.d("PULPOLOG", "Fecha inicio" + etFechIni.toString());
+                                Log.d("LogPulpo.TAG", "Fecha inicio" + etFechIni.toString());
 
                             }
                         }, anio, mes, dia);
@@ -186,20 +186,20 @@ public class GestionTorneoActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference refTorneos = database.getReference(Rutas.ROOT_TORNEOS);
         mail = IdentificadorUtils.crearIdentificacionMail(etCorreoOrg.getText().toString());
-        Log.d("PULPOLOG", "El correo del organizador es el siguiente" + mail);
+        Log.d("LogPulpo.TAG", "El correo del organizador es el siguiente" + mail);
 
-        Log.w("PULPOLOG", "EL VALOR DE etAnios ANTES DE PARSEAR" + etAnios);
+        Log.w("LogPulpo.TAG", "EL VALOR DE etAnios ANTES DE PARSEAR" + etAnios);
         if ("" != etAnio.getText().toString()) {
             try {
                 etAnios = Integer.parseInt(etAnio.getText().toString().trim());
-                Log.w("PULPOLOG", "EL VALOR DE etAnios" + etAnios);
+                Log.w("LogPulpo.TAG", "EL VALOR DE etAnios" + etAnios);
             } catch (NumberFormatException nf) {
                 nf.printStackTrace();
             }
         }
         //etAnios = Integer.parseInt(etAnio.getText().toString().trim());
         id = etNombre.getText().toString() + "_" + etAnio.getText().toString();
-        Log.d("PULPOLOG", "EL VALOR DEL ID ES " + id);
+        Log.d("LogPulpo.TAG", "EL VALOR DEL ID ES " + id);
 
         //  etId.setText(id);
 
@@ -225,9 +225,9 @@ public class GestionTorneoActivity extends AppCompatActivity {
                     if(usuarioRol==null){
                         usuarioRol=new UsuarioRol();
                         usuarioRol.setNombre(torneo.getNombreOrganizador());
-                        Log.d("PULPOLOG","Nombre Organizador"+ usuarioRol.getNombre());
+                        Log.d("LogPulpo.TAG","Nombre Organizador"+ usuarioRol.getNombre());
                         usuarioRol.setApellido(torneo.getApellidoOrganizador());
-                        Log.d("PULPOLOG","Apellido Organizador"+ usuarioRol.getApellido());
+                        Log.d("LogPulpo.TAG","Apellido Organizador"+ usuarioRol.getApellido());
                         refUsuario.setValue(usuarioRol);
                         refUsuario.child(Rutas.ROLES).push().setValue(rol);
                     }else{
@@ -244,7 +244,7 @@ public class GestionTorneoActivity extends AppCompatActivity {
         });
 
         refTorneos.child(torneo.getId()).setValue(torneo);
-        Log.d("PULPOLOG", "Se inserto el torneo");
+        Log.d("LogPulpo.TAG", "Se inserto el torneo");
 
 
     }
@@ -261,12 +261,12 @@ public class GestionTorneoActivity extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("PULPOLOG ", "error al cagar la imagen del torneo ", e);
+                Log.e("LogPulpo.TAG ", "error al cagar la imagen del torneo ", e);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("PULPOLOG ", "imagen cargada");
+                Log.d("LogPulpo.TAG ", "imagen cargada");
             }
         });
     }
@@ -302,12 +302,12 @@ public class GestionTorneoActivity extends AppCompatActivity {
 
     public void ingresar() {
         boolean resultadoValidacion;
-        Log.w("PULPOLOG", "Ingresa al Metodo ingresar()");
+        Log.w("LogPulpo.TAG", "Ingresa al Metodo ingresar()");
         // String salida = "Mail:" + etMail.getText().toString() + "Password:" + etPassword.getText().toString();
       /* Toast.makeText(this,
              "Valor:" + salida, Toast.LENGTH_LONG).show();*/
         resultadoValidacion = validarCampos();
-        Log.w("PULPOLOG", "RESULTADO VALIDACION>>" + resultadoValidacion);
+        Log.w("LogPulpo.TAG", "RESULTADO VALIDACION>>" + resultadoValidacion);
         if (resultadoValidacion) {
             insertarTorneo();
             insertarImagen();
@@ -319,7 +319,7 @@ public class GestionTorneoActivity extends AppCompatActivity {
     public boolean validarCampos() {
         boolean correcto = true;
 
-        Log.w("PULPOLOG", "ingreso al Metodo validarCampos() ");
+        Log.w("LogPulpo.TAG", "ingreso al Metodo validarCampos() ");
        /* if (etId.getText() != null && etId.getText().toString().isEmpty()) {
             etId.requestFocus();
             etId.setError("El Id es obligatorio");
@@ -332,7 +332,7 @@ public class GestionTorneoActivity extends AppCompatActivity {
             correcto = false;
         }
         if (etAnio.getText() != null && etAnio.getText().toString().isEmpty()) {
-            Log.w("PULPOLOG", "ingreso al Metodo Valicadion de año ");
+            Log.w("LogPulpo.TAG", "ingreso al Metodo Valicadion de año ");
 
             etAnio.requestFocus();
             etAnio.setError("El año del Torneo es obligatorio");
@@ -366,7 +366,7 @@ public class GestionTorneoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("PULPOLOG", "Ingresa al onActivityResult");
+        Log.d("LogPulpo.TAG", "Ingresa al onActivityResult");
         if (resultCode == Activity.RESULT_OK)
             switch (requestCode) {
                 case GALLERY_REQUEST_CODE:
@@ -374,7 +374,7 @@ public class GestionTorneoActivity extends AppCompatActivity {
                     selectedImage = data.getData();
 
                     imagen.setImageURI(selectedImage);
-                    Log.d("PULPOLOG", "Toma el valor del URI" + imagen.toString());
+                    Log.d("LogPulpo.TAG", "Toma el valor del URI" + imagen.toString());
                     break;
             }
     }

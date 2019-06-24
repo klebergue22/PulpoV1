@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
@@ -35,7 +34,7 @@ public class EquipoHolder extends RecyclerView.ViewHolder implements View.OnClic
     @Override
     public void onClick(View v) {
         int pos = getAdapterPosition();
-        Log.d("PULPOLOG", "la posicion es  " + pos+"EquipoHolder");
+        Log.d("LogPulpo.TAG", "la posicion es  " + pos+"EquipoHolder");
    Intent intent = new Intent(v.getContext(), ListaJugadoresActivity.class);
 
         Equipo equipoSeleccionado=PulpoSingleton.getInstance().getEquipos().get(pos);

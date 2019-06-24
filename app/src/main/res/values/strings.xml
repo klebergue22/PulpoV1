@@ -26,7 +26,6 @@
     <string name="app_btnCargaFotoPerfil">Cargar Foto Perfil</string>
 
 
-
     <string name="app_id">Id</string>
     <string name="app_nombre_T">Nombre</string>
     <string name="app_anio">Año</string>
@@ -94,6 +93,7 @@
 
     <string name="app_ser_par_equipo">NRegistrar Fecha</string>
     <string name="app_btn_Finalizar">Finalizar</string>
+    <string name="title_activity_lista_torneos">ListaTorneos</string>
 
 
 </resources>

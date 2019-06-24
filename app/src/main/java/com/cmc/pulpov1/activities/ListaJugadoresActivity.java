@@ -14,7 +14,6 @@ import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
 import com.cmc.pulpov1.adapters.JugadorAdapter;
 import com.cmc.pulpov1.entities.Jugador;
-import com.cmc.pulpov1.entities.Torneo;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,7 +44,7 @@ public class ListaJugadoresActivity extends AppCompatActivity {
         escucharJugadores();
         // tomarPosicion();
 
-        //Log.d("PULPOLOG", "vALOR DEL MAIL EN EL SINGLETON" + PulpoSingleton.getInstance().getMailN());
+        //Log.d("LogPulpo.TAG", "vALOR DEL MAIL EN EL SINGLETON" + PulpoSingleton.getInstance().getMailN());
 
 
         jugadores = new ArrayList<Jugador>();
@@ -97,16 +96,16 @@ public class ListaJugadoresActivity extends AppCompatActivity {
                                                  .child(Rutas.EQUIPOS).child(PulpoSingleton.getInstance().getCodigoEquipo())
                 .child(Rutas.MIEMBROS);;
 
-        Log.d("PULPOLOG","Valor del la Categoria en el  Path"+PulpoSingleton.getInstance().getCodigoCategoria());
+        Log.d("LogPulpo.TAG","Valor del la Categoria en el  Path"+PulpoSingleton.getInstance().getCodigoCategoria());
 
-        Log.d("PULPOLOG","Valor del Path"+Rutas.ROOT_TORNEOS
+        Log.d("LogPulpo.TAG","Valor del Path"+Rutas.ROOT_TORNEOS
                                                    +PulpoSingleton.getInstance().getCodigoTorneo()+Rutas.CATEGORIAS+PulpoSingleton.getInstance().getCodigoCategoria()+Rutas.EQUIPOS+PulpoSingleton.getInstance().getCodigoEquipo());
 
         //2.-Crear el listener
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-             //   Log.d("PULPOLOG", "Se agrega Jugador " + dataSnapshot.getKey());
+             //   Log.d("LogPulpo.TAG", "Se agrega Jugador " + dataSnapshot.getKey());
                 boolean repetido = false;
                 for (Jugador jugador : jugadores) {
                     if (jugador.equals(dataSnapshot.getKey())) {
@@ -128,7 +127,7 @@ public class ListaJugadoresActivity extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-            //    Log.d("PULPOLOG", "Se borra jugador " + dataSnapshot.getKey());
+            //    Log.d("LogPulpo.TAG", "Se borra jugador " + dataSnapshot.getKey());
                 int posicionRepetido = -1;
                 for (int i = 0; i < jugadores.size(); i++) {
                     if (jugadores.get(i).equals(dataSnapshot.getKey())) {

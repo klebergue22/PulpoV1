@@ -58,7 +58,7 @@ public class PartidoHolder extends RecyclerView.ViewHolder implements View.OnCli
     @Override
     public void onClick(View v) {
         int pos = getAdapterPosition();
-        Log.d("PULPOLOG", "la posicion en el HOLDER es  " + pos + "PartidoHolder");
+        Log.d("LogPulpo.TAG", "la posicion en el HOLDER es  " + pos + "PartidoHolder");
 
         Intent intent = new Intent(v.getContext(), CalendarioActivity.class);
 

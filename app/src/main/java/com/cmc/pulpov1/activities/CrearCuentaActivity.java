@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.cmc.pulpov1.IdentificadorUtils;
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -87,9 +88,9 @@ public class CrearCuentaActivity extends AppCompatActivity {
         String registro = "Correo Electronico" + etCorreoE.getText().toString()
                 + "Contraseña" + etClave.getText().toString();
 
-        Log.d(Rutas.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
+        Log.d(LogPulpo.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
         resultadoValidacion = validarCampos();
-        Log.d(Rutas.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
+        Log.d(LogPulpo.TAG,"El valor de la validacion es la siguiente**********"+validarCampos());
         if (resultadoValidacion) {
             crearCuentaFirebase();
             //ingresarRol();
@@ -116,25 +117,25 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
                             //updateUI(user);
                         } else {
-                            Log.w("PULPOLOG", "excepcion" + task.getException().getClass().getCanonicalName() + " " + task.getException()+"CrearCuentaActivity");
+                            Log.w("LogPulpo.TAG", "excepcion" + task.getException().getClass().getCanonicalName() + " " + task.getException()+"CrearCuentaActivity");
 
                             if (((task.getException() instanceof FirebaseAuthWeakPasswordException)) &&((etClave.getText() != null && etClave.getText().toString().isEmpty()))) {
-                                Log.e("PULPOLOG", "La contraseña debe tener al menos 6 caracteres"+"CrearCuentaActivity", task.getException());
+                                Log.e("LogPulpo.TAG", "La contraseña debe tener al menos 6 caracteres"+"CrearCuentaActivity", task.getException());
                                 //Toast.makeText(CrearCuentaActivity.this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
                                 tilClaveCrear.setError("La contraseña debe tener al menos 6 caracteres");
                             } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                Log.w("PULPOLOG", "Ya existe un usuario registrado con ese correo"+"CrearCuentaActivity");
+                                Log.w("LogPulpo.TAG", "Ya existe un usuario registrado con ese correo"+"CrearCuentaActivity");
                                 //Toast.makeText(CrearCuentaActivity.this, "Ya existe un usuario registrado con ese correo", Toast.LENGTH_SHORT).show();
                                 tilCorreo.setError("Ya existe un usuario registrado con ese correo");
                             } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Log.w("PULPOLOG", "El formato del correo es incorrecto"+"CrearCuentaActivity");
+                                Log.w("LogPulpo.TAG", "El formato del correo es incorrecto"+"CrearCuentaActivity");
                                 //Toast.makeText(CrearCuentaActivity.this, "El formato del correo es incorrecto", Toast.LENGTH_SHORT).show();
                                 tilCorreo.setError("El formato del correo es incorrecto");
                             }
 
-                            //  Log.w("PULPOLOG","excepcion"+task.getException().getClass().getCanonicalName());
+                            //  Log.w("LogPulpo.TAG","excepcion"+task.getException().getClass().getCanonicalName());
                             else {
-                                Log.e("PULPOLOG", "Error al crear el registro "+"CrearCuentaActivity", task.getException());
+                                Log.e("LogPulpo.TAG", "Error al crear el registro "+"CrearCuentaActivity", task.getException());
                                 //Toast.makeText(CrearCuentaActivity.this, "Error al crear el registro ", Toast.LENGTH_SHORT).show();
                                 tilMensajeCrear.setError("Error al crear el registro");
                             }
@@ -181,13 +182,13 @@ public class CrearCuentaActivity extends AppCompatActivity {
         //creo un objeto persona para poder realizar la insercion
 
         persona.setNombre(etNombre.getText().toString());
-      //  Log.d("PULPOLOG", "NOMBRE PERSONA" + etNombre.getText().toString()+"CrearCuentaActivity");
+      //  Log.d("LogPulpo.TAG", "NOMBRE PERSONA" + etNombre.getText().toString()+"CrearCuentaActivity");
         persona.setApellido(etApellido.getText().toString());
         // persona.setCorreo(etCorreoE.getText().toString())
         PulpoSingleton.getInstance().setMail(etCorreoE.getText().toString());
         mailC = IdentificadorUtils.crearIdentificacionMail(etCorreoE.getText().toString());
         PulpoSingleton.getInstance().setMail(mailC);
-      //  Log.d("PULPOLOG", "EL VALOR DEL CORREO ES " + mailC+"CrearCuentaActivity");
+      //  Log.d("LogPulpo.TAG", "EL VALOR DEL CORREO ES " + mailC+"CrearCuentaActivity");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef1 = database.
                 getReference(Rutas.USUARIOS);
@@ -195,7 +196,7 @@ public class CrearCuentaActivity extends AppCompatActivity {
 
 
       //  Toast.makeText(this,                "Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString(), Toast.LENGTH_LONG).show();
-      //  Log.d("PULPOLOG", "Se inserto el USUARIO EN EL ROL"+"CrearCuentaActivity");
+      //  Log.d("LogPulpo.TAG", "Se inserto el USUARIO EN EL ROL"+"CrearCuentaActivity");
         tilMensajeCrear.setError("Se inserto el USUARIO EN EL ROL:" + persona.getNombre().toString());
 
     }

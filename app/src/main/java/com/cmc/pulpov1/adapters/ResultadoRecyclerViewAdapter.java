@@ -47,8 +47,8 @@ public class ResultadoRecyclerViewAdapter extends RecyclerView.Adapter<Resultado
         resultadoHolder.bind(partidos.get(position));
         final Partido partidoActual = PulpoSingleton.getInstance().getPartidos().get(position);
 
-        Log.d("PULPOLOG","Holder de resultados  "+partidos.size());
-        Log.d("PULPOLOG","INGRESA EN EL METODO ONCLICK RV DEL BOTON"+partidoActual.toString());
+        Log.d("LogPulpo.TAG","Holder de resultados  "+partidos.size());
+        Log.d("LogPulpo.TAG","INGRESA EN EL METODO ONCLICK RV DEL BOTON"+partidoActual.toString());
 //        Log.d(Rutas.TAG,"El valor del numero de partido es "+PulpoSingleton.getInstance().getNumeroFechaP().toString());
         database = FirebaseDatabase.getInstance();
        /* FirebaseDatabase database = FirebaseDatabase.getInstance();

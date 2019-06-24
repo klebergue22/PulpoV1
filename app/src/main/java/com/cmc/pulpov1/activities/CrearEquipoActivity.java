@@ -171,12 +171,12 @@ public class CrearEquipoActivity extends AppCompatActivity {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("PULPOLOG ", "error al cagar la imagen del torneo "+"EquipoActivity", e);
+                Log.e("LogPulpo.TAG ", "error al cagar la imagen del torneo "+"EquipoActivity", e);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("PULPOLOG ", "imagen cargada"+"EquipoActivity");
+                Log.d("LogPulpo.TAG ", "imagen cargada"+"EquipoActivity");
             }
         });
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -48,8 +49,8 @@ public class ResultadosFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         partidos = new ArrayList<Partido>();
         partidos = PulpoSingleton.getInstance().getPartidos();
-        Log.d(Rutas.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
-        Log.d(Rutas.TAG,"El valor de la fecha es"+PulpoSingleton.getInstance().getNumeroFechaP());
+        Log.d(LogPulpo.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
+        Log.d(LogPulpo.TAG,"El valor de la fecha es"+PulpoSingleton.getInstance().getNumeroFechaP());
 
 
         btnFinalizar = view.findViewById(R.id.btnFinalizar);
@@ -57,7 +58,7 @@ public class ResultadosFragment extends Fragment {
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(Rutas.TAG, "se dio click en el boton***************"+PulpoSingleton.getInstance().getNumeroFechaP());
+                Log.d(LogPulpo.TAG, "se dio click en el boton***************"+PulpoSingleton.getInstance().getNumeroFechaP());
                 numFecha=PulpoSingleton.getInstance().getNumeroFechaP();
                 refResultados = database.getReference(Rutas.CALENDARIO)
                         .child(Rutas.ROOT_TORNEOS)
@@ -85,7 +86,7 @@ public class ResultadosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 partidos = PulpoSingleton.getInstance().getPartidos();
-                Log.d(Rutas.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
+                Log.d(LogPulpo.TAG, "El valor del OBJETO PARTIDOS ES RESULTADOFRAGMENT " + partidos.toString());
 
 
             }

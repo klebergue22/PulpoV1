@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -94,7 +95,7 @@ public class CalendarioActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendario);
         Intent intent = getIntent();
         numFecha=intent.getStringExtra("numFecha");
-        Log.d(Rutas.TAG,"El valor que se recupera es "+numFecha);
+        Log.d(LogPulpo.TAG,"El valor que se recupera es "+numFecha);
 
         atarComponentes();
 
@@ -110,7 +111,7 @@ public class CalendarioActivity extends AppCompatActivity {
         adpE2 = new CalendarioAdapter(getApplicationContext(), equipo2);
         lvEquipoDos.setAdapter(adpE2);
         codPartido = equipo1Seleccionado.getNombreEquipo() + "_" + equipo2Seleccionado.getNombreEquipo();
-        Log.d("PULPOLOG", "codigo del partido ON CREATE" + codPartido);
+        Log.d("LogPulpo.TAG", "codigo del partido ON CREATE" + codPartido);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +163,7 @@ public class CalendarioActivity extends AppCompatActivity {
                                 etFechaPartido.setText(sdfCompleto.format(fechaProgramacion));
                                 fechaMod = sdfCompleto.format(fechaProgramacion);
 
-                                Log.d("PULPOLOG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
+                                Log.d("LogPulpo.TAG", "Valor de la fecha para el ingreso en el nodo" + fechaMod);
                             }
                         }, anio, mes, dia);
 
@@ -319,8 +320,8 @@ public class CalendarioActivity extends AppCompatActivity {
         if (validarValores()) {
             //PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
             PulpoSingleton.getInstance().setNumeroFechaP(numFecha);
-            Log.d(Rutas.TAG, "El valor del numero de fecha del calendario es######  " + PulpoSingleton.getInstance().getNumeroFechaP());
-            Log.d(Rutas.TAG, "El valor del codPartido dentro de guardar fecha es " + codPartido.toString());
+            Log.d(LogPulpo.TAG, "El valor del numero de fecha del calendario es######  " + PulpoSingleton.getInstance().getNumeroFechaP());
+            Log.d(LogPulpo.TAG, "El valor del codPartido dentro de guardar fecha es " + codPartido.toString());
             horaP = spHora.getSelectedItem().toString();
             minP = spMiunuto.getSelectedItem().toString();
             partido.setEquipoUno(equipo1Seleccionado.getNombreEquipo());
@@ -341,13 +342,13 @@ public class CalendarioActivity extends AppCompatActivity {
 
             refFecha.setValue(partido);
 
-            Log.d(Rutas.TAG, "El valor del codigo del numero de fecha es " + PulpoSingleton.getInstance().getNumeroFechaP());
+            Log.d(LogPulpo.TAG, "El valor del codigo del numero de fecha es " + PulpoSingleton.getInstance().getNumeroFechaP());
 
             //      partidos=PulpoSingleton.getInstance().getPartidos();
-            //    Log.d(Rutas.TAG,"El numero de partidos que tiene la lista es/////// "+partidos.size());
+            //    Log.d(LogPulpo.TAG,"El numero de partidos que tiene la lista es/////// "+partidos.size());
             //   partidos.add(partido);
             PulpoSingleton.getInstance().setCodigoPartido(codPartido);
-            Log.d(Rutas.TAG, "El valor del numero del codigo del partido es " + PulpoSingleton.getInstance().getCodigoPartido());
+            Log.d(LogPulpo.TAG, "El valor del numero del codigo del partido es " + PulpoSingleton.getInstance().getCodigoPartido());
             PulpoSingleton.getInstance().setNumeroFechaP(tvNumeroFecha.getText().toString());
 
 
@@ -359,7 +360,7 @@ public class CalendarioActivity extends AppCompatActivity {
             }*/
 
             Toast.makeText(this, "Se registro el Partido " + partido.getEquipoUno().toString() + partido.getEquipoDos().toString(), Toast.LENGTH_SHORT).show();
-            Log.d("PULPOLOG", "Se registro el partido");
+            Log.d("LogPulpo.TAG", "Se registro el partido");
 
             // partidoAdapter = new PartidoRecyclerViewAdapter(partidos);
             // PulpoSingleton.getInstance().setPartidoAdapter(partidoAdapter);
@@ -367,7 +368,7 @@ public class CalendarioActivity extends AppCompatActivity {
 
         } else {
             Toast.makeText(this, "No se registro el partido " + partido.getEquipoUno().toString() + partido.getEquipoDos().toString(), Toast.LENGTH_SHORT).show();
-            Log.d("PULPOLOG", "Error al registrar el partido");
+            Log.d("LogPulpo.TAG", "Error al registrar el partido");
         }
 
 
@@ -376,7 +377,7 @@ public class CalendarioActivity extends AppCompatActivity {
     public void navIrListaPartidos() {
         Intent intent = new Intent(this, ListaPartidosActivity.class);
         intent.putExtra("numFecha",numFecha);
-        Log.d(Rutas.TAG,"El valor enviado en crearFechas hacia la lista de fechas es  es  "+numFecha);
+        Log.d(LogPulpo.TAG,"El valor enviado en crearFechas hacia la lista de fechas es  es  "+numFecha);
         PulpoSingleton.getInstance().setNumeroFechaP(numFecha);
 
         startActivity(intent);

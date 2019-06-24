@@ -31,7 +31,7 @@ public class EquipoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         database = FirebaseDatabase.getInstance();
 
-    Log.d("PULPOLOG","se dispara onViewCreated EquipoFragment");
+    Log.d("LogPulpo.TAG","se dispara onViewCreated EquipoFragment");
 
         recyclerView=(RecyclerView)view.findViewById(R.id.equipo_rv);
         LinearLayoutManager layoutManager =new LinearLayoutManager(getContext());

@@ -43,7 +43,7 @@ public class EquipoAdapter extends ArrayAdapter<Equipo> {
 
         storage = FirebaseStorage.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("equipos");
-        Log.d("PULPOLOG","CONSTURCTOR DEL ADAPTER EL VALOR DE LOS EQUIPOS ES "+equipos.size());
+        Log.d("LogPulpo.TAG","CONSTURCTOR DEL ADAPTER EL VALOR DE LOS EQUIPOS ES "+equipos.size());
 
     }
 
@@ -72,7 +72,7 @@ public class EquipoAdapter extends ArrayAdapter<Equipo> {
         if (viewItem == null)
             //Cambiar el inflate para el layout que se hace referencia
             viewItem = LayoutInflater.from(context).inflate(R.layout.item_equipo, parent, false);
-        Log.d("PULPOLOG","eL VALOR DEL GETVIEW EQUIPOS"+equipos.size());
+        Log.d("LogPulpo.TAG","eL VALOR DEL GETVIEW EQUIPOS"+equipos.size());
         //Se setea la posicion del equipo actual
         Equipo equipoActual = equipos.get(position);
 

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.cmc.pulpov1.LogPulpo;
 import com.cmc.pulpov1.PulpoSingleton;
 import com.cmc.pulpov1.R;
 import com.cmc.pulpov1.Rutas;
@@ -43,11 +44,11 @@ public class CargarImagenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cargar_imagen);
         Intent intent = getIntent();
         tipoImagen = intent.getStringExtra("paramTipoImagen");
-        tipoPerfil = PulpoSingleton.getInstance().getTipo();
+        tipoPerfil = intent.getStringExtra("paramTipoPerfil");
         recuperarJugador();
 
-        Log.d(Rutas.TAG, "KDGGel valor recuperado del tipoImagen es " + tipoImagen);
-        Log.d(Rutas.TAG, "KDGGel valor recuperado del nombreImagen es " + nombreImagen);
+        Log.d(LogPulpo.TAG, "KDGGel valor recuperado del tipoImagen es " + tipoImagen);
+        Log.d(LogPulpo.TAG, "KDGGel valor recuperado del nombreImagen es " + nombreImagen);
         atarcomponentes();
         storageReference = FirebaseStorage.getInstance().getReference(tipoImagen);
         btnCargarImagen.setOnClickListener(new View.OnClickListener() {
@@ -88,28 +89,29 @@ public class CargarImagenActivity extends AppCompatActivity {
     }
 
     private void insertarImagen() {
-        Log.d(Rutas.TAG,"INSERTANDO IMAGEN DE TIPO "+tipoImagen);
-        if (Rutas.PERFIL.equals(tipoImagen)) {
+        Log.d(LogPulpo.TAG,"INSERTANDO IMAGEN DE TIPO "+tipoImagen);
+        if (Rutas.FOTOPERFIL.equals(tipoImagen)) {
             jugador.setImagenPerfil(System.currentTimeMillis() + "");
             nombreImagen = jugador.getImagenPerfil();
         } else if (Rutas.CEDULAS.equals(tipoImagen)) {
             jugador.setImagenCedula(System.currentTimeMillis() + "");
             nombreImagen = jugador.getImagenCedula();
         }
-        Log.d(Rutas.TAG, "eL VALOR DEL JUGADOR ES " + jugador);
+        Log.d(LogPulpo.TAG, "eL VALOR DEL JUGADOR ES " + jugador);
         StorageReference imagenReference = storageReference.child(jugador.getCedula()).child(nombreImagen);
+
         actualizarImagenPerfil();
         UploadTask uploadTask = imagenReference.putFile(selectedImage);
-        Log.w(Rutas.TAG, "SMO El valor de la referencia x es " + imagenReference.getPath());
+        Log.w(LogPulpo.TAG, "SMO El valor de la referencia x es " + imagenReference.getPath());
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("PULPOLOG ", "error al cagar la imagen " + "EquipoActivity", e);
+                Log.e("LogPulpo.TAG ", "error al cagar la imagen " + "EquipoActivity", e);
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("PULPOLOG ", "imagen cargada" + "EquipoActivity");
+                Log.d("LogPulpo.TAG ", "imagen cargada" + "EquipoActivity");
                 // put the String to pass back into an Intent and close this activity
                 Intent intent = new Intent();
                 intent.putExtra("cargoImagen", true);
@@ -123,7 +125,7 @@ public class CargarImagenActivity extends AppCompatActivity {
     }
 
     public void actualizarImagenPerfil() {
-        if (Rutas.PERFIL.equals(tipoImagen)) {
+        if (Rutas.FOTOPERFIL.equals(tipoImagen)) {
             FirebaseDatabase.getInstance().getReference(Rutas.JUGADORES)
                             .child(PulpoSingleton.getInstance()
                             .getMail()).child(tipoPerfil)
@@ -165,7 +167,7 @@ public class CargarImagenActivity extends AppCompatActivity {
                 jugador = adminPerfil.getAdicional2();
                 break;
         }
-        Log.d(Rutas.TAG,"jugador recuperado "+jugador);
+        Log.d(LogPulpo.TAG,"jugador recuperado "+jugador);
     }
 
 
@@ -183,7 +185,7 @@ public class CargarImagenActivity extends AppCompatActivity {
 
     private void recuperarImg() {
 
-        if (Rutas.PERFIL.equals(tipoImagen)) {
+        if (Rutas.FOTOPERFIL.equals(tipoImagen)) {
             nombreImagen = jugador.getImagenPerfil();
         } else if (Rutas.CEDULAS.equals(tipoImagen)) {
             nombreImagen = jugador.getImagenCedula();

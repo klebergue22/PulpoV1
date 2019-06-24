@@ -6,7 +6,7 @@ public  class  IdentificadorUtils {
     public static String crearIdentificacionMail(String mail){
 
         mailC = mail.replace(".", "").replace("#", "").replace("#", "").replace("$", "");
-       // Log.w("PULPOLOG", "El mail corregido es************ " + mailC);
+       // Log.w("LogPulpo.TAG", "El mail corregido es************ " + mailC);
         return mailC.trim();
     }
 
